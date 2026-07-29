@@ -3,7 +3,7 @@ name: git-commit
 description: Create or prepare tightly scoped Git commits with Chinese Conventional Commit messages and staged-diff verification. Use when the user asks to commit, stage and commit, submit changes, prepare a commit message, fix an unpushed nonconforming commit, or says phrases such as "提交改动", "提交全部改动", or "commit these changes" in any Git repository.
 ---
 
-# Git Commit
+# git-commit
 
 Create one reviewable commit whose files, message, and verification all match the user's requested change. Treat repository-specific instructions as authoritative and use this workflow only as the fallback where they are silent.
 

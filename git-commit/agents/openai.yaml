@@ -1,4 +1,4 @@
 interface:
-  display_name: "Git 提交"
+  display_name: "git-commit"
   short_description: "按实际改动范围创建中文 Conventional Commit"
   default_prompt: "使用 $git-commit 检查当前改动并创建范围准确的中文 Conventional Commit。"
