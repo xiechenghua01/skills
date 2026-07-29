@@ -17,6 +17,8 @@
 
 [**git-commit**](./git-commit/SKILL.md) — 检查改动范围、验证暂存内容，并创建范围准确的中文 Conventional Commit。
 
+[**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。
+
 ## 扩展约定
 
 新增技能时：

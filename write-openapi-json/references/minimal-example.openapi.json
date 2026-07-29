@@ -1,0 +1,200 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "资源状态管理",
+    "description": "用于导入 Apifox 管理资源列表和资源启用接口。本文档只包含用户指定范围内的 HTTP 接口。",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "资源管理"
+    }
+  ],
+  "paths": {
+    "/resources/index": {
+      "get": {
+        "summary": "资源分页列表",
+        "deprecated": false,
+        "description": "分页查询当前数据范围内的资源。",
+        "tags": [
+          "资源管理"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "资源启用状态：0-禁用，1-启用",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "const": 200,
+                      "description": "HTTP业务响应码"
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "请求链路ID"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "响应消息"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "分页数据",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "description": "当前页码"
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "description": "每页数量"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "总记录数"
+                        },
+                        "data": {
+                          "type": "array",
+                          "description": "当前页资源列表",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "资源ID"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "资源名称"
+                              },
+                              "status": {
+                                "type": "integer",
+                                "title": "资源启用状态",
+                                "description": "资源启用状态：0-禁用，1-启用",
+                                "enum": [
+                                  0,
+                                  1
+                                ]
+                              },
+                              "updated_at": {
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "description": "更新时间，Unix秒时间戳"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "name",
+                              "status",
+                              "updated_at"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "per_page",
+                        "total",
+                        "data"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "trace_id",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources/enable": {
+      "post": {
+        "summary": "启用资源",
+        "deprecated": false,
+        "description": "根据资源ID启用指定资源。",
+        "tags": [
+          "资源管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "资源ID"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "example": {
+                "id": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "example": {
+                  "code": 200,
+                  "trace_id": "01J00000000000000000000000",
+                  "message": "成功",
+                  "data": []
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {},
+  "servers": []
+}
