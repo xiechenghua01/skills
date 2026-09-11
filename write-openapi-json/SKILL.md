@@ -7,11 +7,22 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
 
 按用户指定范围生成可导入 Apifox 的 OpenAPI JSON，并以代码实际行为作为契约依据。
 
+## 0. 先锁定文件归属和接口清单（硬性）
+
+在读代码和写文件前，先形成一张接口清单，至少包含：业务域、目标 OpenAPI 文件、HTTP 方法、路径、Controller 方法、Request 场景、请求参数来源、最终响应构造位置。
+
+- 用户指定“单独文件”时，目标接口只能写入该文件，不能追加到已有总文件或 `regulatory-approval.openapi.json`。
+- 用户指定“合并到一个文件”时，相关业务域只能合并到这一份文件，不得为每个业务域另建重复文件。
+- 将接口从旧文件迁移到新文件时，必须同时从旧文件删除，并检查旧文件和新文件不存在重复路径。
+- 写入前后都要打印并核对路径清单；文件数量、路径数量、HTTP 方法必须与清单一致。
+- 结构校验通过不代表范围正确；写入了错误文件属于失败，必须在交付前单独检查。
+
 ## 必读资源
 
 1. 写文件前完整阅读 [references/format-guide.md](references/format-guide.md)。
 2. 需要骨架时复制 [references/minimal-example.openapi.json](references/minimal-example.openapi.json) 的结构，只替换业务内容，不复制示例业务字段。
 3. 写完后必须运行 `python3 scripts/validate_openapi.py <输出文件>`。
+4. 写接口范围包含 JSON Body 时，必须再运行 `python3 scripts/validate_openapi_request_contract.py <输出文件>`，检查字段中文说明、完整请求示例和嵌套结构。
 
 ## 工作流
 
@@ -23,6 +34,8 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
 - 对“当前有改动的接口”同时检查 Git diff 和当前完整代码，不能只看 diff。
 - 列表和详情响应必须追踪最终返回值，完整展开实际字段、嵌套对象、分页字段和可空字段，禁止用简单占位结构代替。
 - 代码和需求冲突或动态返回字段无法确认时，指出差异并询问；不要猜测不存在的字段、状态或业务规则。
+- POST、PUT、PATCH、DELETE 的 JSON 参数必须追踪 `Request` 对应的 `scene`、`validated()` 和 Controller 传入 Service 的字段，不能只看 Controller 方法名。
+- 新增接口时必须检查完整调用链：路由属性、Controller、Request 场景和规则、Service、Model/Resource/格式化方法、响应封装。
 
 ### 2. 按业务范围命名
 
@@ -34,6 +47,7 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
   - 用户权限管理：`user-permission-management.openapi.json`
 - 不使用 `openapi.json`、`api.openapi.json`、`new.openapi.json` 等无法表达范围的名称。
 - 用户未指定目录时，仓库存在 `doc/` 则写入 `doc/`，否则写入当前文档目录。
+- 文件名必须能表达合并后的全部业务范围，不能沿用只覆盖其中一个资源的旧文件名。
 
 ### 3. 按固定格式编写
 
@@ -46,6 +60,18 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
 - 状态字段必须写清字段名称和全部值含义；必要时同时写 `title`。例如描述应为“UOM实名登记状态：0-正常……”，不能只写“0-正常……”。
 - 时间字段写清 Unix 秒或毫秒、UTC 或本地时间；单位字段写清单位。
 - 保留接口真实字段名和现有拼写，即使代码字段拼写不标准，也只能在描述中说明，不能擅自改名。
+
+### 3.1 请求参数、中文说明和示例（硬性）
+
+- 查询参数和路径参数写入 `parameters`；每个参数必须有中文 `description`、`schema` 和可直接使用的 `example`。没有查询/路径参数的操作才写 `parameters: []`。
+- JSON 请求体字段只能写入 `requestBody.content.application/json.schema.properties`，不能为了让 UI 显示而把 Body 字段伪装成 `parameters`。
+- 每个 JSON Body 操作必须同时具备：`requestBody.required: true`、内联 `schema.type: object`、完整 `properties` 和 `required`、媒体类型级 `example`，以及每个 Body 字段自己的 `example` 和中文 `description`。
+- 完整请求示例必须放在 `requestBody.content.application/json.example`；禁止只写 `requestBody.example`，也不能只写 `schema.example` 代替媒体类型级示例。
+- `requestBody.content.application/json.example` 必须是完整请求对象，字段集合与 `schema.properties` 一致，包括可选字段；可选字段使用真实值或 `null`。
+- 中文 `description` 不能只写字段英文名或类型；必须说明业务含义、单位、格式、枚举、长度、是否可为空及条件必填规则。条件必填要说明触发条件，并在 OpenAPI 允许时用 `if`/`then` 补充。
+- 嵌套对象和数组项同样必须有中文说明。附件必须展开路径、大小、上传时间等字段；等级选项必须展开 `value`、`label`；不得只写 `items: {}` 或只描述数组本身。
+- 示例值必须通过代码规则：身份证号符合校验码、日期范围合法、执照编号符合正则、附件扩展名符合规则、数值满足最小值和单位。示例不得使用加密值、摘要、Token 或真实敏感数据。
+- 参考已有接口时只复用字段说明风格和响应封装，不复制与当前接口不一致的字段、空参数或旧业务模型。
 
 ### 4. 严格排除非目标内容
 
@@ -63,9 +89,32 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
    python3 <skill-dir>/scripts/validate_openapi.py <输出文件>
    ```
 
-2. 对照范围清单逐个确认路径、方法、请求字段、响应字段、枚举、必填和可空定义。
-3. 搜索并确认不存在 `components`、`security`、`securitySchemes`、`$ref` 和非 `200` 响应。
-4. 检查文件名能准确表达用户指定范围。
-5. 最终说明输出路径、覆盖接口、验证结果和仍无法从代码确认的缺口。
+2. 运行请求契约审计：
+
+   ```bash
+   python3 <skill-dir>/scripts/validate_openapi_request_contract.py <输出文件>
+   ```
+
+   该审计会检查每个 JSON Body 操作的 `requestBody`、`schema.properties`、`required`、媒体类型级 `example`、字段级 `example`、中文 `description`、参数示例和嵌套数组结构。
+   它还会检查所有 HTTP 操作的 query/path 参数、`required` 中的未知或重复字段，以及 Body 字段是否被重复放入 `parameters`。
+
+3. 对每个写操作做人工请求契约复核，不能只看结构校验：
+   - POST、PUT、PATCH、DELETE 若有 JSON Body，确认 `requestBody`、`schema.properties`、`required` 和媒体类型级 `example` 同时存在。
+   - 确认媒体类型级 `example` 的字段集合与 `schema.properties` 一致，每个字段都有 `example` 和包含中文字符的 `description`。
+   - 递归检查数组和嵌套对象：字段有结构时不得出现空 `items`，每个嵌套字段都有中文说明。
+   - 确认所有 `parameters` 都有中文 `description` 和示例值；无参数的操作必须是代码真实无参数，而不是漏写。
+   - 对照 Request 场景逐个核对字段、条件必填、可空、枚举、格式和示例值。
+4. 对照范围清单逐个确认路径、方法、请求字段、响应字段、枚举、必填和可空定义。
+5. 搜索并确认不存在 `components`、`security`、`securitySchemes`、`$ref` 和非 `200` 响应。
+6. 检查文件名能准确表达用户指定范围，并确认旧文件没有残留或重复路径。
+7. 最终说明输出路径、覆盖接口、请求体示例位置、验证结果和仍无法从代码确认的缺口。
+
+### 常见失败复盘
+
+- 只把字段放入 `schema.properties`，没有 `application/json.example`：结构校验可能通过，但 Apifox 的请求示例仍为空。
+- 只写英文类型、没有中文 `description`：字段“存在”不等于接口文档可用，必须逐字段说明。
+- 把 JSON Body 字段写进 `parameters`：这不符合 OpenAPI 语义；Body 应放 `requestBody`，但必须补媒体类型级完整示例。
+- 复用旧总文档并把新接口追加进去：会造成业务域归属错误或重复路径；先确定目标文件，再迁移并清理旧文件。
+- 用 `items: {}` 省略关联对象：会让响应看似完整但实际无法导入字段，只有代码无法确定结构时才允许。
 
 不要声称 Apifox 导入成功，除非实际执行过导入验证。
