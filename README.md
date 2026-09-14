@@ -41,11 +41,14 @@
 5. 仅允许用户显式调用的技能，需要在 `agents/openai.yaml` 中设置 `policy.allow_implicit_invocation: false`。
 6. 在技能目录下添加 `.zcode-plugin/plugin.json`，填写与目录一致的插件名称、版本、描述及 `"skills": "."`。
 7. 在根目录 `marketplace.json` 的 `plugins` 中登记同名插件，`source` 使用相对仓库根目录的路径，例如 `./<skill-name>`。
+8. 需要展示图标时，把图标放入根目录 `assets/`，并在 `marketplace.json` 该插件的 `icon` 字段填入其 HTTPS 地址。
 
 推荐的最小目录结构：
 
 ```text
 marketplace.json
+assets/
+└── <skill-name>.png
 <skill-name>/
 ├── .zcode-plugin/
 │   └── plugin.json
@@ -53,3 +56,15 @@ marketplace.json
 └── agents/
     └── openai.yaml
 ```
+
+## 插件图标
+
+图标显示在插件市场的卡片、插件详情页，以及技能设置页的分组标题和技能行上。约束如下：
+
+- **只认 HTTPS 绝对地址**：客户端仅在 `icon` 以 `https://` 开头时才加载图片，本地相对路径、`data:` 地址一律回退为通用图标。因此图标必须托管到 HTTPS。
+- **本仓库用 jsDelivr**：`assets/<skill-name>.png` 通过 jsDelivr 指向本仓库，形如
+  `https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/<skill-name>.png`。
+- **推荐 PNG**：同时保留同名 `.svg` 作为源文件便于修改；用 256×256（或更大）PNG 作为线上图，与官方市场图标规格一致。
+- **改动需推送**：jsDelivr 与市场更新都读取 GitHub 上的内容，修改后需先 `push`，再在 **设置 → 插件管理 → 发现** 中更新市场才能看到新图标。
+
+> 注意：技能设置页的分组由**插件**决定，一个插件一个分组。同组展示多个技能（如 GitHub 插件的 10 个技能）需要把它们放进同一个插件；独立的插件会各占一个分组，即使图标相同。

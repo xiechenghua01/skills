@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="write-openapi-json">
+  <rect width="48" height="48" rx="11" ry="11" fill="#3F9142"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21.4 13c-2.7 0-3.7 1.5-3.7 4v3.2c0 2.4-1.4 3.8-3.5 3.8 2.1 0 3.5 1.4 3.5 3.8V31c0 2.5 1 4 3.7 4"/>
+    <path d="M26.6 13c2.7 0 3.7 1.5 3.7 4v3.2c0 2.4 1.4 3.8 3.5 3.8-2.1 0-3.5 1.4-3.5 3.8V31c0 2.5-1 4-3.7 4"/>
+  </g>
+</svg>
