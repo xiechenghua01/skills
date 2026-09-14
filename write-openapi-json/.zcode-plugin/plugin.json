@@ -1,0 +1,6 @@
+{
+  "name": "write-openapi-json",
+  "version": "0.1.0",
+  "description": "按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。",
+  "skills": "."
+}
