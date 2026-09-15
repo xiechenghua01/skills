@@ -58,6 +58,7 @@
                     "code": {
                       "type": "integer",
                       "const": 200,
+                      "example": 200,
                       "description": "HTTP业务响应码"
                     },
                     "trace_id": {
@@ -89,6 +90,7 @@
                           "description": "当前页资源列表",
                           "items": {
                             "type": "object",
+                            "description": "单条资源记录，包含编号、名称、状态和更新时间",
                             "properties": {
                               "id": {
                                 "type": "integer",
@@ -112,7 +114,7 @@
                                   "integer",
                                   "null"
                                 ],
-                                "description": "更新时间，Unix秒时间戳"
+                                "description": "更新时间，Unix秒时间戳，未更新时为 null"
                               }
                             },
                             "required": [
@@ -164,7 +166,8 @@
                   "id": {
                     "type": "integer",
                     "minimum": 1,
-                    "description": "资源ID"
+                    "description": "资源ID",
+                    "example": 1
                   }
                 },
                 "required": [
@@ -182,6 +185,35 @@
             "description": "成功",
             "content": {
               "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "const": 200,
+                      "example": 200,
+                      "description": "HTTP业务响应码"
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "请求链路ID"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "响应消息"
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "启用操作无业务数据，固定返回空数组"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "trace_id",
+                    "message",
+                    "data"
+                  ]
+                },
                 "example": {
                   "code": 200,
                   "trace_id": "01J00000000000000000000000",

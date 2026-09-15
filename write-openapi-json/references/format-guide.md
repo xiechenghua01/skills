@@ -158,7 +158,7 @@
 }
 ```
 
-只返回空数据的操作接口可以使用完整响应示例：
+只返回空数据的操作接口也必须内联 schema，可以同时保留完整响应 example：
 
 ```json
 {
@@ -166,6 +166,35 @@
     "description": "成功",
     "content": {
       "application/json": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer",
+              "const": 200,
+              "example": 200,
+              "description": "HTTP业务响应码，成功固定为 200"
+            },
+            "trace_id": {
+              "type": "string",
+              "description": "请求链路ID"
+            },
+            "message": {
+              "type": "string",
+              "description": "响应消息"
+            },
+            "data": {
+              "type": "array",
+              "description": "操作接口无业务数据，固定返回空数组"
+            }
+          },
+          "required": [
+            "code",
+            "trace_id",
+            "message",
+            "data"
+          ]
+        },
         "example": {
           "code": 200,
           "trace_id": "01J00000000000000000000000",
@@ -189,6 +218,10 @@
 - 示例值必须符合代码校验规则，不能使用加密值、摘要、Token 或真实敏感数据。
 - 状态、类型、来源、操作原因等枚举必须完整，不得遗漏 `null`、未知或历史兼容值。
 - 时间戳写清秒或毫秒；金额、距离、时长等写清单位。
+- 写响应 schema 前，先建立响应字段清单：Model 的 `$fillable`、`$appends`、`$hidden`、`$casts`，关联关系 select 列，格式化/Resource 方法附加字段，分页器元数据。写完后逐接口把 `properties` 字段集合与清单对账；`$hidden` 不输出、字段拆分到其他接口等差异必须逐条解释，不允许静默缺失。
+- `200` 响应的每个字段、数组项和 oneOf/anyOf/allOf 分支都必须有包含业务含义的中文 `description`，说明单位、枚举、可空等信息；不能只重复字段英文名，也不能只写"字段"等通用词。
+- 有 `const` 的字段必须带 `example`，且 `example` 的类型和值与 `const` 完全一致；例如 `const: 200` 时 `example` 必须是整数 `200`，不能是字符串 `"200"`。
+- `200` 响应必须内联 `schema`；只写媒体类型级 `example` 而不写 `schema` 属于缺失，无法导入字段结构。
 
 ## 文件命名
 

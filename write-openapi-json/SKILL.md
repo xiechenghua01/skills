@@ -23,6 +23,7 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
 2. 需要骨架时复制 [references/minimal-example.openapi.json](references/minimal-example.openapi.json) 的结构，只替换业务内容，不复制示例业务字段。
 3. 写完后必须运行 `python3 scripts/validate_openapi.py <输出文件>`。
 4. 写接口范围包含 JSON Body 时，必须再运行 `python3 scripts/validate_openapi_request_contract.py <输出文件>`，检查字段中文说明、完整请求示例和嵌套结构。
+5. 写完后必须运行 `python3 scripts/validate_openapi_response_contract.py <输出文件>`，审计 200 响应的字段中文说明、业务含义、const 示例一致性和响应 schema 完整性。
 
 ## 工作流
 
@@ -55,7 +56,7 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
 - 顶层按 `openapi`、`info`、`tags`、`paths`、`webhooks`、`servers` 排列；固定写入空的 `webhooks: {}` 和 `servers: []`。
 - 每个操作按 `summary`、`deprecated`、`description`、`tags`、`parameters`、`requestBody`、`responses` 排列；没有参数也写 `parameters: []`。
 - 查询和路径参数直接内联到 `parameters`；JSON 请求体直接内联到 `requestBody.content.application/json.schema`。
-- 只写 `200` 响应。返回业务数据时完整内联响应 schema；仅返回空 `data` 的操作接口可使用完整响应 example。
+- 只写 `200` 响应。每个 `200` 响应都必须完整内联 schema；仅返回空 `data` 的操作接口也必须写 schema，可同时保留完整响应 example。
 - 准确声明 `type`、`required`、`enum`、`minimum`、`maxLength`、`pattern`、`example` 和条件校验。可空字段使用 OpenAPI 3.1 的类型数组，例如 `"type": ["string", "null"]`。
 - 状态字段必须写清字段名称和全部值含义；必要时同时写 `title`。例如描述应为“UOM实名登记状态：0-正常……”，不能只写“0-正常……”。
 - 时间字段写清 Unix 秒或毫秒、UTC 或本地时间；单位字段写清单位。
@@ -72,6 +73,13 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
 - 嵌套对象和数组项同样必须有中文说明。附件必须展开路径、大小、上传时间等字段；等级选项必须展开 `value`、`label`；不得只写 `items: {}` 或只描述数组本身。
 - 示例值必须通过代码规则：身份证号符合校验码、日期范围合法、执照编号符合正则、附件扩展名符合规则、数值满足最小值和单位。示例不得使用加密值、摘要、Token 或真实敏感数据。
 - 参考已有接口时只复用字段说明风格和响应封装，不复制与当前接口不一致的字段、空参数或旧业务模型。
+
+### 3.2 响应字段清单与对账（硬性）
+
+- 写文件前，为每个接口建立"响应字段清单"，来源至少包括：Model 的 `$fillable`、`$appends`、`$hidden`、`$casts`，关联关系方法的 select 列，格式化/Resource/序列化方法附加的字段，以及分页器元数据（`current_page`、`per_page`、`total` 等）。
+- `$hidden` 字段、格式化方法重命名的字段、按场景裁剪的字段都要在清单中登记，不能凭印象跳过。
+- 写文件后逐接口把 JSON `properties` 字段集合与清单对账：清单中的每个字段要么出现在 JSON 中，要么逐条解释差异（如 `$hidden` 不输出、字段拆分到其他接口按需查询）。
+- 不允许静默缺失：对不上账的字段必须补写，或在交付说明中逐条说明原因；关联对象禁止用空对象占位代替真实字段。
 
 ### 4. 严格排除非目标内容
 
@@ -98,19 +106,31 @@ description: 根据用户指定的接口或业务范围，从实际代码和现�
    该审计会检查每个 JSON Body 操作的 `requestBody`、`schema.properties`、`required`、媒体类型级 `example`、字段级 `example`、中文 `description`、参数示例和嵌套数组结构。
    它还会检查所有 HTTP 操作的 query/path 参数、`required` 中的未知或重复字段，以及 Body 字段是否被重复放入 `parameters`。
 
-3. 对每个写操作做人工请求契约复核，不能只看结构校验：
+3. 运行响应契约审计：
+
+   ```bash
+   python3 <skill-dir>/scripts/validate_openapi_response_contract.py <输出文件>
+   ```
+
+   该审计会递归检查每个操作 `200` 响应 schema：properties 成员、items、oneOf/anyOf/allOf 分支的中文 description 和业务含义，`const` 字段 example 的类型与值一致性，以及媒体类型只有 example 没有 schema 的问题。
+
+   结构校验、请求契约审计、响应契约审计三步全部通过才算交付；任何一步失败，修复后必须重跑全部三步。
+
+4. 对每个写操作做人工请求契约复核，不能只看结构校验：
    - POST、PUT、PATCH、DELETE 若有 JSON Body，确认 `requestBody`、`schema.properties`、`required` 和媒体类型级 `example` 同时存在。
    - 确认媒体类型级 `example` 的字段集合与 `schema.properties` 一致，每个字段都有 `example` 和包含中文字符的 `description`。
    - 递归检查数组和嵌套对象：字段有结构时不得出现空 `items`，每个嵌套字段都有中文说明。
    - 确认所有 `parameters` 都有中文 `description` 和示例值；无参数的操作必须是代码真实无参数，而不是漏写。
    - 对照 Request 场景逐个核对字段、条件必填、可空、枚举、格式和示例值。
-4. 对照范围清单逐个确认路径、方法、请求字段、响应字段、枚举、必填和可空定义。
-5. 搜索并确认不存在 `components`、`security`、`securitySchemes`、`$ref` 和非 `200` 响应。
-6. 检查文件名能准确表达用户指定范围，并确认旧文件没有残留或重复路径。
-7. 最终说明输出路径、覆盖接口、请求体示例位置、验证结果和仍无法从代码确认的缺口。
+5. 对照范围清单和响应字段清单（见 3.2）逐个确认路径、方法、请求字段、响应字段、枚举、必填和可空定义。
+6. 搜索并确认不存在 `components`、`security`、`securitySchemes`、`$ref` 和非 `200` 响应。
+7. 检查文件名能准确表达用户指定范围，并确认旧文件没有残留或重复路径。
+8. 最终说明输出路径、覆盖接口、请求体示例位置、验证结果和仍无法从代码确认的缺口。
 
 ### 常见失败复盘
 
+- 响应字段漏写：接口实际返回 22 个顶层字段，文档只写了 10 个，关联对象只留空对象占位。根因：没有先从 Model 与格式化代码反推响应字段清单并与 JSON 对账，只凭旧文档和印象写字段。
+- 响应字段缺中文说明：156 处响应字段、数组项和 oneOf 分支没有中文 description，7 处 code 的 example 是与 const 类型不一致的字符串，还有响应只写 example 不写 schema。根因：请求侧有自动审计而响应侧只靠人工自觉，缺失长期无人发现。
 - 只把字段放入 `schema.properties`，没有 `application/json.example`：结构校验可能通过，但 Apifox 的请求示例仍为空。
 - 只写英文类型、没有中文 `description`：字段“存在”不等于接口文档可用，必须逐字段说明。
 - 把 JSON Body 字段写进 `parameters`：这不符合 OpenAPI 语义；Body 应放 `requestBody`，但必须补媒体类型级完整示例。

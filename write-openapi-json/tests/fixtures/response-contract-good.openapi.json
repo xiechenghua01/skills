@@ -1,0 +1,351 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "账户查询与开户管理",
+    "description": "用于验证响应契约审计的合规样例，包含账户分页查询和创建账户接口。本文档只包含用户指定范围内的 HTTP 接口。",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "账户管理"
+    }
+  ],
+  "paths": {
+    "/accounts/index": {
+      "get": {
+        "summary": "账户分页列表",
+        "deprecated": false,
+        "description": "按页码、关键词和状态分页查询账户。",
+        "tags": [
+          "账户管理"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "页码，从 1 开始，默认第 1 页",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "账户名称模糊搜索关键词，不传时查询全部账户",
+            "required": false,
+            "example": "华东",
+            "schema": {
+              "type": "string",
+              "maxLength": 32
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "账户状态：0-停用，1-启用，2-冻结；不传时查询全部状态",
+            "required": false,
+            "example": 1,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "const": 200,
+                      "example": 200,
+                      "description": "业务响应码，成功固定为 200"
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "请求链路ID，用于问题追踪"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "响应消息，接口成功时返回 成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "分页账户数据",
+                      "properties": {
+                        "current_page": {
+                          "type": "integer",
+                          "description": "当前页码，从 1 开始"
+                        },
+                        "per_page": {
+                          "type": "integer",
+                          "description": "每页记录数，单位为条"
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "总记录数，单位为条"
+                        },
+                        "data": {
+                          "type": "array",
+                          "description": "当前页账户列表",
+                          "items": {
+                            "type": "object",
+                            "description": "单个账户记录，包含基础信息、统计信息和审核意见",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "账户ID，数据库自增主键",
+                                "example": 1001
+                              },
+                              "account_no": {
+                                "type": "string",
+                                "description": "账户编码，业务唯一编号，格式为 ACC 加 8 位数字",
+                                "example": "ACC00001234"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "账户名称，2-32 个字符",
+                                "example": "华东一号账户"
+                              },
+                              "status": {
+                                "type": "integer",
+                                "description": "账户状态：0-停用，1-启用，2-冻结",
+                                "enum": [
+                                  0,
+                                  1,
+                                  2
+                                ],
+                                "example": 1
+                              },
+                              "balance": {
+                                "type": [
+                                  "integer",
+                                  "null"
+                                ],
+                                "description": "账户余额，单位为分，未开户时为 null",
+                                "example": 125000
+                              },
+                              "statistics": {
+                                "type": "object",
+                                "description": "账户统计信息",
+                                "properties": {
+                                  "total_orders": {
+                                    "type": "integer",
+                                    "description": "累计订单数，单位为单",
+                                    "example": 36
+                                  },
+                                  "total_amount": {
+                                    "type": "integer",
+                                    "description": "累计交易金额，单位为分",
+                                    "example": 3600000
+                                  },
+                                  "last_order_at": {
+                                    "type": [
+                                      "integer",
+                                      "null"
+                                    ],
+                                    "description": "最近一次下单时间，Unix 秒时间戳，从未下单时为 null",
+                                    "example": 1750000000
+                                  }
+                                },
+                                "required": [
+                                  "total_orders",
+                                  "total_amount",
+                                  "last_order_at"
+                                ]
+                              },
+                              "audit_opinion": {
+                                "description": "审核意见：账户被冻结时为对象，其余状态为 null",
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "description": "账户被冻结时返回的审核意见对象",
+                                    "properties": {
+                                      "reason": {
+                                        "type": "string",
+                                        "description": "冻结原因，人工审核时填写",
+                                        "example": "证照过期"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "description": "审核人姓名，执行冻结的员工",
+                                        "example": "张三"
+                                      },
+                                      "audited_at": {
+                                        "type": "integer",
+                                        "description": "审核时间，Unix 秒时间戳",
+                                        "example": 1750000100
+                                      }
+                                    },
+                                    "required": [
+                                      "reason",
+                                      "operator",
+                                      "audited_at"
+                                    ]
+                                  },
+                                  {
+                                    "type": "null",
+                                    "description": "账户未冻结时固定为 null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "account_no",
+                              "name",
+                              "status",
+                              "balance",
+                              "statistics",
+                              "audit_opinion"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "current_page",
+                        "per_page",
+                        "total",
+                        "data"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "trace_id",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/create": {
+      "post": {
+        "summary": "创建账户",
+        "deprecated": false,
+        "description": "按名称和类型创建新账户，返回新账户标识。",
+        "tags": [
+          "账户管理"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 32,
+                    "description": "账户名称，2-32 个字符",
+                    "example": "华东二号账户"
+                  },
+                  "account_type": {
+                    "type": "integer",
+                    "description": "账户类型：1-基本户，2-一般户",
+                    "enum": [
+                      1,
+                      2
+                    ],
+                    "example": 1
+                  },
+                  "initial_balance": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "description": "初始余额，单位为分，不传或传 null 时按 0 处理",
+                    "example": 0
+                  }
+                },
+                "required": [
+                  "name",
+                  "account_type"
+                ]
+              },
+              "example": {
+                "name": "华东二号账户",
+                "account_type": 1,
+                "initial_balance": 0
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "const": 200,
+                      "example": 200,
+                      "description": "业务响应码，成功固定为 200"
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "请求链路ID，用于问题追踪"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "响应消息，接口成功时返回 成功"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "新建账户标识信息",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "新账户ID，由数据库自增生成",
+                          "example": 2001
+                        },
+                        "account_no": {
+                          "type": "string",
+                          "description": "新账户编码，格式为 ACC 加 8 位数字",
+                          "example": "ACC00002001"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "account_no"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "trace_id",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {},
+  "servers": []
+}
