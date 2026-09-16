@@ -26,6 +26,28 @@ def schema_type_is(schema: dict[str, Any], expected: str) -> bool:
     return schema_type == expected
 
 
+def find_binary_field(schema: Any) -> bool:
+    """Return True when the schema tree declares at least one binary file field."""
+    if not isinstance(schema, dict):
+        return False
+    if schema.get("format") == "binary":
+        return True
+    properties = schema.get("properties")
+    if isinstance(properties, dict) and any(
+        find_binary_field(child) for child in properties.values()
+    ):
+        return True
+    if find_binary_field(schema.get("items")):
+        return True
+    for key in ("allOf", "anyOf", "oneOf"):
+        variants = schema.get(key, [])
+        if isinstance(variants, list) and any(
+            find_binary_field(child) for child in variants
+        ):
+            return True
+    return False
+
+
 def check_example_shape(
     schema: Any,
     example: Any,
@@ -75,6 +97,9 @@ def check_schema_metadata(
         errors.append(f"{location} 必须是 schema 对象")
         return
 
+    if schema.get("format") == "binary" and not schema_type_is(schema, "string"):
+        errors.append(f"{location} 的 binary 字段 type 必须是 string")
+
     properties = schema.get("properties")
     if isinstance(properties, dict):
         for name, child in properties.items():
@@ -104,18 +129,19 @@ def check_schema_metadata(
             check_schema_metadata(child, f"{location}.{key}[{index}]", errors)
 
 
-def validate(path: Path) -> list[str]:
+def validate(path: Path) -> tuple[list[str], list[str]]:
     try:
         document = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
-        return [f"文件不存在: {path}"]
+        return [f"文件不存在: {path}"], []
     except json.JSONDecodeError as exc:
-        return [f"JSON 无效: 第 {exc.lineno} 行第 {exc.colno} 列: {exc.msg}"]
+        return [f"JSON 无效: 第 {exc.lineno} 行第 {exc.colno} 列: {exc.msg}"], []
 
     if not isinstance(document, dict):
-        return ["OpenAPI 文档根节点必须是对象"]
+        return ["OpenAPI 文档根节点必须是对象"], []
 
     errors: list[str] = []
+    hints: list[str] = []
     paths = document.get("paths", {})
     if not isinstance(paths, dict):
         return ["paths 必须是对象"]
@@ -163,9 +189,23 @@ def validate(path: Path) -> list[str]:
             if not isinstance(content, dict):
                 errors.append(f"{operation_location}.requestBody.content 必须是对象")
                 continue
-            media = content.get("application/json")
-            if not isinstance(media, dict):
-                errors.append(f"{operation_location}.requestBody 缺少 application/json")
+            json_media = content.get("application/json")
+            multipart_media = content.get("multipart/form-data")
+            if isinstance(json_media, dict):
+                media = json_media
+                media_key = "application/json"
+                if isinstance(multipart_media, dict):
+                    hints.append(
+                        f"{operation_location} 同时声明了 application/json 与 multipart/form-data，"
+                        "请核对接口是否真实支持两种请求形态，只支持一种时按真实情况删除另一种"
+                    )
+            elif isinstance(multipart_media, dict):
+                media = multipart_media
+                media_key = "multipart/form-data"
+            else:
+                errors.append(
+                    f"{operation_location}.requestBody 缺少 application/json 或 multipart/form-data"
+                )
                 continue
 
             schema = media.get("schema")
@@ -176,6 +216,11 @@ def validate(path: Path) -> list[str]:
             if not isinstance(properties, dict) or not properties:
                 errors.append(f"{operation_location}.requestBody schema.properties 不能为空")
                 continue
+            if media_key == "multipart/form-data" and not find_binary_field(schema):
+                errors.append(
+                    f"{operation_location}.requestBody.content.multipart/form-data"
+                    " 必须至少声明一个 format: binary 文件字段"
+                )
             required = schema.get("required")
             if not isinstance(required, list):
                 errors.append(f"{operation_location}.requestBody 缺少 required 数组")
@@ -206,7 +251,7 @@ def validate(path: Path) -> list[str]:
 
             if not isinstance(media.get("example"), dict):
                 errors.append(
-                    f"{operation_location}.requestBody.content.application/json 缺少完整 example"
+                    f"{operation_location}.requestBody.content.{media_key} 缺少完整 example"
                 )
             else:
                 check_example_shape(
@@ -222,7 +267,7 @@ def validate(path: Path) -> list[str]:
                 errors,
             )
 
-    return errors
+    return errors, hints
 
 
 def main() -> int:
@@ -231,7 +276,7 @@ def main() -> int:
         return 2
 
     path = Path(sys.argv[1]).resolve()
-    errors = validate(path)
+    errors, hints = validate(path)
     if errors:
         print(f"OpenAPI 请求契约校验失败: {path}", file=sys.stderr)
         for error in errors:
@@ -239,6 +284,8 @@ def main() -> int:
         return 1
 
     print(f"OpenAPI 请求契约校验通过: {path}")
+    for hint in hints:
+        print(f"提示: {hint}")
     return 0
 
 

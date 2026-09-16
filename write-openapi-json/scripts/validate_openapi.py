@@ -36,6 +36,92 @@ AUTH_FIELD_NAMES = {
     "sign",
     "signature",
 }
+CHINESE = re.compile(r"[\u3400-\u9fff]")
+
+
+def has_chinese(value: Any) -> bool:
+    return isinstance(value, str) and bool(CHINESE.search(value))
+
+
+def schema_type_is(schema: dict[str, Any], expected: str) -> bool:
+    schema_type = schema.get("type")
+    if isinstance(schema_type, list):
+        return expected in schema_type
+    return schema_type == expected
+
+
+def find_binary_field(schema: Any) -> bool:
+    """Return True when the schema tree declares at least one binary file field."""
+    if not isinstance(schema, dict):
+        return False
+    if schema.get("format") == "binary":
+        return True
+    properties = schema.get("properties")
+    if isinstance(properties, dict) and any(
+        find_binary_field(child) for child in properties.values()
+    ):
+        return True
+    if find_binary_field(schema.get("items")):
+        return True
+    for key in ("allOf", "anyOf", "oneOf"):
+        variants = schema.get(key, [])
+        if isinstance(variants, list) and any(
+            find_binary_field(child) for child in variants
+        ):
+            return True
+    return False
+
+
+def check_binary_type(schema: Any, location: str, errors: list[str]) -> None:
+    if (
+        isinstance(schema, dict)
+        and schema.get("format") == "binary"
+        and not schema_type_is(schema, "string")
+    ):
+        errors.append(f"{location} 的 binary 字段 type 必须是 string")
+
+
+def validate_multipart_media(
+    media: dict[str, Any],
+    operation_location: str,
+    errors: list[str],
+) -> None:
+    """Apply JSON-equivalent structural checks to a multipart/form-data request body."""
+    media_location = f"{operation_location}.requestBody.content.multipart/form-data"
+    schema = media.get("schema")
+    if not isinstance(schema, dict):
+        errors.append(f"{operation_location}.requestBody 必须内联 multipart/form-data schema")
+        return
+    if not schema_type_is(schema, "object"):
+        errors.append(f"{media_location}.schema 必须是 object")
+        return
+    properties = schema.get("properties")
+    if not isinstance(properties, dict) or not properties:
+        errors.append(f"{media_location}.schema.properties 不能为空")
+        return
+    required = schema.get("required")
+    if isinstance(required, list):
+        unknown_required = [name for name in required if name not in properties]
+        if unknown_required:
+            names = ", ".join(str(name) for name in unknown_required)
+            errors.append(f"{media_location}.schema.required 包含未定义字段: {names}")
+    if not find_binary_field(schema):
+        errors.append(
+            f"{media_location}.schema 必须至少声明一个 format: binary 文件字段"
+        )
+    for name, child in properties.items():
+        child_location = f"{media_location}.schema.properties.{name}"
+        if not isinstance(child, dict):
+            errors.append(f"{child_location} 必须是对象")
+            continue
+        check_binary_type(child, child_location, errors)
+        if not has_chinese(child.get("description")):
+            errors.append(f"{child_location} 缺少中文 description")
+        example = child.get("example")
+        if example is None or example == "" or example == [] or example == {}:
+            errors.append(f"{child_location} 缺少非空 example")
+    if not isinstance(media.get("example"), dict):
+        errors.append(f"{media_location} 缺少媒体类型级 example")
 
 
 def walk(value: Any, location: str = "$"):
@@ -49,9 +135,10 @@ def walk(value: Any, location: str = "$"):
             yield from walk(child, f"{location}[{index}]")
 
 
-def validate(path: Path) -> list[str]:
-    """Return all validation errors for an OpenAPI JSON file."""
+def validate(path: Path) -> tuple[list[str], list[str]]:
+    """Return all validation errors and media-type hints for an OpenAPI JSON file."""
     errors: list[str] = []
+    hints: list[str] = []
 
     if not FILENAME_PATTERN.fullmatch(path.name):
         errors.append("文件名必须是表达业务范围的 kebab-case，并以 .openapi.json 结尾")
@@ -59,12 +146,12 @@ def validate(path: Path) -> list[str]:
     try:
         document = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
-        return [f"文件不存在: {path}"]
+        return [f"文件不存在: {path}"], []
     except json.JSONDecodeError as exc:
-        return [f"JSON 无效: 第 {exc.lineno} 行第 {exc.colno} 列: {exc.msg}"]
+        return [f"JSON 无效: 第 {exc.lineno} 行第 {exc.colno} 列: {exc.msg}"], []
 
     if not isinstance(document, dict):
-        return ["OpenAPI 文档顶层必须是对象"]
+        return ["OpenAPI 文档顶层必须是对象"], []
 
     actual_top_level_keys = set(document)
     missing_top_level_keys = TOP_LEVEL_KEYS - actual_top_level_keys
@@ -122,7 +209,7 @@ def validate(path: Path) -> list[str]:
     paths = document.get("paths")
     if not isinstance(paths, dict) or not paths:
         errors.append("paths 必须是非空对象")
-        return errors
+        return errors, []
 
     operation_count = 0
     for route, path_item in paths.items():
@@ -183,16 +270,34 @@ def validate(path: Path) -> list[str]:
             request_body = operation.get("requestBody")
             if request_body is not None:
                 request_content = request_body.get("content") if isinstance(request_body, dict) else None
-                request_media = request_content.get("application/json") if isinstance(request_content, dict) else None
+                request_content = request_content if isinstance(request_content, dict) else {}
+                json_media = request_content.get("application/json")
+                multipart_media = request_content.get("multipart/form-data")
                 if not isinstance(request_body, dict) or request_body.get("required") is not True:
                     errors.append(f"{operation_location}.requestBody.required 必须为 true")
-                if not isinstance(request_media, dict) or not isinstance(request_media.get("schema"), dict):
+                if json_media is not None and not isinstance(json_media, dict):
                     errors.append(f"{operation_location}.requestBody 必须内联 application/json schema")
+                if isinstance(json_media, dict):
+                    if not isinstance(json_media.get("schema"), dict):
+                        errors.append(f"{operation_location}.requestBody 必须内联 application/json schema")
+                    if isinstance(multipart_media, dict):
+                        hints.append(
+                            f"{operation_location} 同时声明了 application/json 与 multipart/form-data，"
+                            "请核对接口是否真实支持两种请求形态，只支持一种时按真实情况删除另一种"
+                        )
+                elif isinstance(multipart_media, dict):
+                    validate_multipart_media(multipart_media, operation_location, errors)
+                elif multipart_media is not None:
+                    errors.append(f"{operation_location}.requestBody 必须内联 multipart/form-data schema")
+                elif json_media is None and multipart_media is None:
+                    errors.append(
+                        f"{operation_location}.requestBody 必须内联 application/json 或 multipart/form-data schema"
+                    )
 
     if operation_count == 0:
         errors.append("paths 中没有可用的 HTTP 操作")
 
-    return errors
+    return errors, hints
 
 
 def main() -> int:
@@ -201,7 +306,7 @@ def main() -> int:
         return 2
 
     path = Path(sys.argv[1]).resolve()
-    errors = validate(path)
+    errors, hints = validate(path)
     if errors:
         print(f"OpenAPI 校验失败: {path}", file=sys.stderr)
         for error in errors:
@@ -212,6 +317,8 @@ def main() -> int:
     operation_count = sum(len(path_item) for path_item in document["paths"].values())
     print(f"OpenAPI 校验通过: {path}")
     print(f"接口数量: {operation_count}")
+    for hint in hints:
+        print(f"提示: {hint}")
     return 0
 
 

@@ -106,12 +106,64 @@
 ```
 
 - 使用内联 schema，不使用 `$ref`。
+- 先按接口真实读取参数的方式确定媒体类型：JSON body 用 `application/json`，文件/表单上传用 `multipart/form-data`（见下节）。不为了通过校验声明接口不接受的媒体类型；判定与冲突处理见 SKILL.md 的「媒体类型判定与冲突处理」。
+- 校验相关的描述从 Request、Service 实际代码提炼，写清真实校验条件与失败提示；可空字段、数组字段写清 `null`、空数组、缺省在新增与编辑场景下的差别。
 - 条件必填可以使用 OpenAPI 3.1 的 `if`、`then`、`allOf`。
 - 多个典型请求场景使用 `examples`，否则使用一个 `example`。
 - `schema.properties` 中的每个请求字段必须有中文 `description` 和字段级 `example`；媒体类型级 `example` 必须覆盖全部字段，包括可选字段。
 - 媒体类型级 `example` 用于 Apifox/Swagger UI 直接展示完整传参；不能只写字段结构而省略完整请求示例。
 - 完整示例必须位于 `content.application/json.example`，不能放在 `requestBody.example`，也不能用 `schema.example` 替代。
 - `parameters` 只放 query/path 参数；不要把 JSON Body 字段复制到 `parameters`。`parameters: []` 只表示接口确实没有 query/path 参数，不能表示遗漏了 `requestBody`。
+
+## multipart 上传请求体
+
+Controller 通过 `$request->file(...)`、`$request->hasFile()` 等读取文件、Request 未定义 JSON body 规则时，接口属于 multipart 上传，请求体声明为 `multipart/form-data`。这类接口通常按下面的结构写：
+
+```json
+{
+  "required": true,
+  "content": {
+    "multipart/form-data": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "description": "上传的 PDF 资格证明文件，必填，仅接受 PDF 格式，单个不超过 10MB，超出时提示 文件大小超出限制",
+            "example": "qualification-certificate.pdf"
+          },
+          "remark": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "文件备注，说明文件用途或有效期等附加信息，可选，不传或传 null 时不记录备注",
+            "example": "2026 年度资质审核用"
+          }
+        },
+        "required": [
+          "file"
+        ]
+      },
+      "example": {
+        "file": "qualification-certificate.pdf",
+        "remark": "2026 年度资质审核用"
+      }
+    }
+  }
+}
+```
+
+这是这类接口的常见写法参考，不是唯一强制模板；字段集合、校验规则以代码实际读取为准：
+
+- `requestBody.required: true`，`schema.type: object`；`schema.required` 与 Request 校验规则对应：Request 中声明必填的字段（如文件字段的 `required` 规则）列入 `required`，条件必填在字段 `description` 写清触发条件。
+- 文件字段使用 `type: "string"` + `format: "binary"`；多文件上传使用 `type: "array"`，并在 `items` 内声明 `type: "string"` + `format: "binary"`。
+- 文件字段的中文 `description` 写清字段业务名称、允许的文件类型、大小上限、是否必填，以及超限或类型不符时的真实失败提示；从 Request、Service 代码提炼，不凭印象编写校验条件。
+- 文件字段的字段级 `example` 使用符合规则的文件名（含扩展名），不使用二进制内容、加密值或真实敏感文件。
+- 除文件外的普通表单字段（如备注、场景标识、关联 ID）一并写入 `properties` 并给出中文说明和字段级 `example`，`required` 按真实规则。
+- 媒体类型级 `example` 是完整表单对象，放在 `content["multipart/form-data"].example`，字段集合与 `schema.properties` 一致，包括可选字段；文件字段的示例值用文件名。
+- 这类接口通常只声明 `multipart/form-data`；接口真实不接受 JSON 请求体时不补 `application/json` 镜像，副作用见 SKILL.md「媒体类型判定与冲突处理」。
 
 ## 响应格式
 
