@@ -4,12 +4,22 @@
     {
       "name": "git-commit",
       "source": "./git-commit",
+      "displayName": "Git Commit",
+      "displayName_i18n": {
+        "en": "Git Commit",
+        "zh-CN": "提交改动"
+      },
       "description": "检查改动范围、验证暂存内容，并创建范围准确的中文 Conventional Commit。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/git-commit.png"
     },
     {
       "name": "write-openapi-json",
       "source": "./write-openapi-json",
+      "displayName": "Write OpenAPI JSON",
+      "displayName_i18n": {
+        "en": "Write OpenAPI JSON",
+        "zh-CN": "编写接口契约"
+      },
       "description": "按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-openapi-json.png"
     }

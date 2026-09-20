@@ -41,7 +41,8 @@
 5. 仅允许用户显式调用的技能，需要在 `agents/openai.yaml` 中设置 `policy.allow_implicit_invocation: false`。
 6. 在技能目录下添加 `.zcode-plugin/plugin.json`，填写与目录一致的插件名称、版本、描述及 `"skills": "."`。
 7. 在根目录 `marketplace.json` 的 `plugins` 中登记同名插件，`source` 使用相对仓库根目录的路径，例如 `./<skill-name>`。
-8. 需要展示图标时，把图标放入根目录 `assets/`，并在 `marketplace.json` 该插件的 `icon` 字段填入其 HTTPS 地址。
+8. 在同一条目中填写 `displayName` 和 `displayName_i18n`，让插件在中文界面显示中文名，见下方「插件显示名」。
+9. 需要展示图标时，把图标放入根目录 `assets/`，并在 `marketplace.json` 该插件的 `icon` 字段填入其 HTTPS 地址。
 
 推荐的最小目录结构：
 
@@ -56,6 +57,17 @@ assets/
 └── agents/
     └── openai.yaml
 ```
+
+## 插件显示名
+
+技能在 ZCode 中展示的名称来自插件的市场条目字段 `displayName` / `displayName_i18n`，而不是 `SKILL.md` 的 `name`。解读顺序：先按语言前缀匹配 `displayName_i18n`（`zh-CN` 会命中 `zh` 开头的键），再回退到 `displayName`，都没有时才把插件名自动标题化（`write-openapi-json` → `Write Openapi Json`）。官方插件正是用这两个字段显示「技能创建器」「飞书 CLI」「电脑控制」等中文名。
+
+- **名称本身保持 ASCII**：插件名、目录名、`SKILL.md` 的 `name` 都必须是 kebab-case ASCII，客户端按 `^[a-z0-9][a-z0-9._-]{0,127}$` 校验。中文名只写在市场条目里，`name` 仍是 `/` 菜单和 `$<skill-name>` 的调用标识。
+- **没有技能级显示名**：`SKILL.md` 的 frontmatter 只识别 `name`、`description`、`when_to_use`、`license`、`metadata`，技能行仍显示 ASCII 技能名；中文名作用在插件分组标题上。本仓库一个插件一个技能，分组标题即技能名称。
+- **不要写进 `plugin.json`**：安装时客户端只从市场条目读取该字段，`.zcode-plugin/plugin.json` 里的 `displayName` 会被剔除，写了不生效。
+- **改动需推送**：与图标相同，市场更新读取 GitHub 上的 `marketplace.json`，修改后需先 `push`，再在 **设置 → 插件管理 → 发现** 中更新市场才能看到新名称。
+
+修改后运行 `python3 scripts/check-display-names.py` 校验：脚本先用官方市场的已知事实校准解析逻辑，再逐项检查本仓库的显示名、名称合法性、`source` 路径和 `SKILL.md` 的 `name` 一致性。
 
 ## 插件图标
 
