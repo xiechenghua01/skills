@@ -1,0 +1,6 @@
+{
+  "name": "write-knowledge-doc",
+  "version": "0.1.0",
+  "description": "把指定的一类技术知识整理为条目式知识文档：按「问题→解法→例子」骨架成文，frontmatter 标注成熟度与核实状态，遵守双读者排版规范，交付前完成读者测试与条目自检。",
+  "skills": "."
+}

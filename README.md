@@ -8,7 +8,7 @@
 
 1. 打开 ZCode **设置 → 插件管理 → 发现**，点击 **添加市场（+）**。
 2. 选择本仓库根目录。本机路径为 `/Users/xiechenghua/Codes/xch/skills`；在其他机器上使用实际克隆路径，不要选择某个技能子目录。
-3. 添加成功后，在该市场中分别安装需要的 `git-commit` 或 `write-openapi-json` 插件。仅添加市场不会自动安装技能。
+3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json` 或 `write-knowledge-doc` 插件。仅添加市场不会自动安装技能。
 4. 安装并启用后，在技能设置或 `/` 菜单中确认技能可用。
 
 根目录的 `marketplace.json` 登记市场及插件来源，各技能目录中的 `.zcode-plugin/plugin.json` 声明插件信息。插件清单中的 `"skills": "."` 相对于插件根目录解析，直接加载已有的 `SKILL.md`，无需移动技能或附属资源。
@@ -29,6 +29,8 @@
 [**git-commit**](./git-commit/SKILL.md) — 检查改动范围、验证暂存内容，并创建范围准确的中文 Conventional Commit。
 
 [**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。
+
+[**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按「问题→解法→例子」骨架成文，frontmatter 标注成熟度与核实状态，交付前完成读者测试与条目自检。
 
 ## 扩展约定
 
@@ -77,6 +79,8 @@ assets/
 - **本仓库用 jsDelivr**：`assets/<skill-name>.png` 通过 jsDelivr 指向本仓库，形如
   `https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/<skill-name>.png`。
 - **推荐 PNG**：同时保留同名 `.svg` 作为源文件便于修改；用 256×256（或更大）PNG 作为线上图，与官方市场图标规格一致。
+- **PNG 由 SVG 渲染，不单独画**：`svg` 是唯一真源，改完 SVG 后执行 `swift scripts/render-icon.swift assets/<skill-name>.svg assets/<skill-name>.png` 重新生成 256×256 PNG。两边各画各的必然形状漂移。
+- **不要用 `qlmanage` 渲染 SVG**：它在 48 尺寸下把内容渲染到画布左上角，且在白底上合成会让圆角外变成不透明白色、圆角边缘混出一条白色弧线。仓库自带的 `scripts/render-icon.swift` 支持本仓库用到的 `rect`（含 `rx` 圆角）、`circle` 与 `path`（`M/L/H/V/C/A/Z`，绝对与相对命令均可用，支持 `fill` 与 `stroke`）图元，按文档顺序绘制。
 - **改动需推送**：jsDelivr 与市场更新都读取 GitHub 上的内容，修改后需先 `push`，再在 **设置 → 插件管理 → 发现** 中更新市场才能看到新图标。
 
 > 注意：技能设置页的分组由**插件**决定，一个插件一个分组。同组展示多个技能（如 GitHub 插件的 10 个技能）需要把它们放进同一个插件；独立的插件会各占一个分组，即使图标相同。

@@ -22,6 +22,17 @@
       },
       "description": "按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-openapi-json.png"
+    },
+    {
+      "name": "write-knowledge-doc",
+      "source": "./write-knowledge-doc",
+      "displayName": "Write Knowledge Doc",
+      "displayName_i18n": {
+        "en": "Write Knowledge Doc",
+        "zh-CN": "写知识文档"
+      },
+      "description": "把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按「问题→解法→例子」骨架成文，frontmatter 标注成熟度与核实状态，遵守双读者排版规范，交付前完成读者测试与条目自检。",
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-knowledge-doc.png"
     }
   ]
 }
