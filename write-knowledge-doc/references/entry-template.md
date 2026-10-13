@@ -5,11 +5,11 @@
 ```markdown
 ---
 title: 概念名（标题必须是概念本身，不能是来源）
-status: seedling      # seedling | budding | evergreen —— 数字花园三阶段
+status: budding      # 成熟度三选一：seedling（粗糙早期）/ budding（已清理、可链接）/ evergreen（概念自洽）
 created: 2026-10-13   # 实际使用当天日期，不要照抄模板日期
 updated: 2026-10-13
 tags: [分布式, 接口设计]   # 与正文术语一致；示例值照抄前先替换
-verified: partial    # all | partial | none —— AI 整理的文档必须写
+verified: partial    # 核实状态三选一：all（每条都查过来源）/ partial（部分查过）/ none（全部未查）
 ---
 
 （H1 概念名——与 title 一致）
@@ -18,7 +18,9 @@ verified: partial    # all | partial | none —— AI 整理的文档必须写
 
 适用场景：什么时候该查这篇。
 
-核实状态：哪些结论查过来源、哪些没有。
+成熟度（status: budding）：已用自己的话重写、可以链接；概念尚未完全定稿。
+
+核实状态（verified: partial）：部分结论查过来源，未查证的见「边界与例外」。
 
 ## 它解决什么问题
 
