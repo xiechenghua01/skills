@@ -70,6 +70,12 @@ CASES = [
         "must_not_match": ["缺少核心章节", "来源导向"],
     },
     {
+        "fixture": "bad-h3-number.md",
+        "exit": 1,
+        "must_match": ["H3", "缺少 x.y 编号"],
+        "must_not_match": ["缺少核心章节", "来源导向"],
+    },
+    {
         "fixture": "systematic-doc.md",
         "exit": 0,
         "must_match": [],

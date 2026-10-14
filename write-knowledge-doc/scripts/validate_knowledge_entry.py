@@ -268,6 +268,23 @@ def check_mode1(lines: list[str], fields: dict[str, str], body_start: int,
         if not "\n".join(c).strip():
             warn(f"章节「{t}」没有内容", offset.get(t))
 
+    # ---- H3：必须带 x.y 编号且 x 与父章一致 ----
+    current_h2_num = 0
+    for i, line in enumerate(body):
+        m2 = H2_RE.match(line)
+        if m2:
+            n = re.match(r"^(\d+)\.", m2.group(1).strip())
+            if n:
+                current_h2_num = int(n.group(1))
+            continue
+        m3 = H3_RE.match(line)
+        if m3:
+            sub = SUB_NUM_RE.match(m3.group(1).strip())
+            if not sub:
+                err(f"H3「{m3.group(1).strip()}」缺少 x.y 编号（如 2.1，x 为父章编号）", body_start + i + 1)
+            elif current_h2_num and int(sub.group(1)) != current_h2_num:
+                err(f"H3 编号 {sub.group(1)}.{sub.group(2)} 与父章编号 {current_h2_num} 不对应", body_start + i + 1)
+
     check_typography(lines, body_start, add)
 
 
@@ -308,9 +325,9 @@ def check_mode2(lines: list[str], add) -> None:
         if m3:
             sub = SUB_NUM_RE.match(m3.group(1).strip())
             if not sub:
-                warn(f"H3「{m3.group(1).strip()}」缺少 x.y 编号（如 1.1）", i + 1)
+                err(f"H3「{m3.group(1).strip()}」缺少 x.y 编号（如 1.1）", i + 1)
             elif current_h2_num and int(sub.group(1)) != current_h2_num:
-                warn(f"H3 编号 {sub.group(1)}.{sub.group(2)} 与父章序号 {current_h2_num} 不对应", i + 1)
+                err(f"H3 编号 {sub.group(1)}.{sub.group(2)} 与父章序号 {current_h2_num} 不对应", i + 1)
 
     # 导语：H1 与第一个 H2 之间应有定位说明
     first_h2 = min((i for i, line in enumerate(lines) if H2_RE.match(line)), default=len(lines))
