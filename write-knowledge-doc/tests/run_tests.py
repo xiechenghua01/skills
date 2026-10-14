@@ -63,6 +63,24 @@ CASES = [
         "must_match": ["H1"],
         "must_not_match": ["缺少核心章节", "来源导向"],
     },
+    {
+        "fixture": "bad-section-number.md",
+        "exit": 1,
+        "must_match": ["缺少阿拉伯数字编号"],
+        "must_not_match": ["缺少核心章节", "来源导向"],
+    },
+    {
+        "fixture": "systematic-doc.md",
+        "exit": 0,
+        "must_match": [],
+        "must_not_match": ["[ERROR]"],
+    },
+    {
+        "fixture": "bad-systematic.md",
+        "exit": 1,
+        "must_match": ["缺少中文数字编号", "编号不连续"],
+        "must_not_match": ["frontmatter"],
+    },
 ]
 
 

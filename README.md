@@ -30,7 +30,7 @@
 
 [**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。
 
-[**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按「问题→解法→例子」骨架成文，frontmatter 标注成熟度与核实状态，交付前完成读者测试与条目自检。
+[**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按编号五章骨架成文，frontmatter 标注成熟度与核实状态，交付前完成读者测试与条目自检；用户要求调研报告或成体系文档时切换为成体系模式。
 
 ## 扩展约定
 

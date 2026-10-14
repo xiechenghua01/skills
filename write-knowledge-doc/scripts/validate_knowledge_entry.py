@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""校验条目式知识文档是否符合 write-knowledge-doc 的结构规范。
+"""校验知识文档是否符合 write-knowledge-doc 的结构规范。
+
+两种模式自动判定：
+- 模式一（条目式）：有 frontmatter 六字段。全套检查——frontmatter 字段与枚举取值、
+  五章编号与顺序（1-5 按序、编号不得省略）、导语三行标注、Dead End、来源导向标题等。
+- 模式二（成体系）：无 frontmatter。检查 H1 唯一、H2 中文数字编号连续、H3 编号与父章对应。
 
 检查分两级：
-- ERROR：结构或硬规则违反，必须修复后才能入库（frontmatter 六字段、五个核心章节、
-  导语、Dead End、来源导向标题）。
+- ERROR：结构或硬规则违反，必须修复后才能入库。
 - WARN：建议处理项（概念名泄漏进「问题」章节、缺例子、裸链接堆砌、加粗通胀等）。
 
-用法：python3 scripts/validate_knowledge_entry.py <条目文件> [更多文件...]
+用法：python3 scripts/validate_knowledge_entry.py <文档文件> [更多文件...]
 """
 
 from __future__ import annotations
@@ -37,10 +41,16 @@ SOURCE_ORIENTED_WORDS = (
     "转载",
     "翻译",
 )
+CN_NUMERALS = "一二三四五六七八九十"
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 INLINE_CODE_RE = re.compile(r"`[^`]+`")
 MD_LINK_RE = re.compile(r"\[[^\]]*\]\([^)]+\)")
 WIKI_LINK_RE = re.compile(r"\[\[[^\]]+\]\]")
+H2_RE = re.compile(r"^##\s+(.*)$")
+H3_RE = re.compile(r"^###\s+(.*)$")
+H1_RE = re.compile(r"^#\s+(\S.*)$")
+CN_NUM_RE = re.compile(r"^([一二三四五六七八九十]+)、")
+SUB_NUM_RE = re.compile(r"^(\d+)\.(\d+)\s")
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], int]:
@@ -71,13 +81,13 @@ def split_sections(body_lines: list[str]) -> tuple[list[str], list[tuple[str, li
     current_title: str | None = None
     current: list[str] = []
     for line in body_lines:
-        m = re.match(r"^##\s+(.*)$", line)
+        m = H2_RE.match(line)
         if m:
             if current_title is not None:
                 sections.append((current_title, current))
             current_title, current = m.group(1).strip(), []
         elif current_title is None:
-            if not re.match(r"^#\s+\S", line):
+            if not H1_RE.match(line):
                 lead.append(line)
         else:
             current.append(line)
@@ -106,23 +116,30 @@ def in_code_block(idx: int, blocks: list[tuple[int, int]]) -> bool:
     return any(start <= idx <= end for start, end in blocks)
 
 
-def check_entry(path: Path) -> list[tuple[str, str, int]]:
-    """返回 (级别, 规则说明, 行号) 列表；级别为 ERROR 或 WARN。"""
-    problems: list[tuple[str, str, int]] = []
-    text = path.read_text(encoding="utf-8")
-    lines = text.splitlines()
+def check_typography(lines: list[str], body_start: int, add) -> None:
+    """排版检查：加粗通胀与行宽（跳过代码块、表格行、标题、frontmatter）。"""
+    fm_block = [(0, body_start)]
+    blocks_all = sorted(fm_block + [(body_start + s + 1, body_start + e + 1)
+                                    for s, e in code_blocks(lines[body_start:])])
+    for i, line in enumerate(lines):
+        if in_code_block(i, blocks_all):
+            continue
+        if line.strip().startswith("|") or line.strip().startswith("#"):
+            continue
+        bold_count = line.count("**") // 2
+        if bold_count > 3:
+            add("WARN", f"一行内加粗 {bold_count} 处（每段最多 2-3 处）", i + 1)
+        if len(line) > 100:
+            add("WARN", f"正文行宽 {len(line)} 字符超过 100", i + 1)
 
-    def err(msg: str, line: int = 0) -> None:
-        problems.append(("ERROR", msg, line))
 
-    def warn(msg: str, line: int = 0) -> None:
-        problems.append(("WARN", msg, line))
+def check_mode1(lines: list[str], fields: dict[str, str], body_start: int,
+                add) -> None:
+    """模式一（条目式）：有 frontmatter，全套检查。"""
+    err = lambda msg, line=0: add("ERROR", msg, line)
+    warn = lambda msg, line=0: add("WARN", msg, line)
 
     # ---- frontmatter ----
-    fields, body_start = parse_frontmatter(text)
-    if not fields:
-        err("缺少可解析的 frontmatter（文件需以 --- 围栏开头）", 1)
-        return problems
     fm_lines = {name: i for i, line in enumerate(lines[1:body_start], start=2)
                 if (name := line.split(":", 1)[0].strip()) in REQUIRED_FIELDS}
     for field in REQUIRED_FIELDS:
@@ -145,7 +162,7 @@ def check_entry(path: Path) -> list[tuple[str, str, int]]:
     # ---- H1 与 title 一致性 ----
     body = lines[body_start:]
     h1_lines = [(body_start + i + 1, line[2:].strip())
-                for i, line in enumerate(body) if re.match(r"^#\s+\S", line)]
+                for i, line in enumerate(body) if H1_RE.match(line)]
     if len(h1_lines) != 1:
         err(f"H1 应有且仅有一个，实际 {len(h1_lines)} 个", body_start + 1)
     elif fields.get("title") and h1_lines[0][1] != fields["title"]:
@@ -161,12 +178,27 @@ def check_entry(path: Path) -> list[tuple[str, str, int]]:
     lead, sections = split_sections(body)
     titles = [t for t, _ in sections]
     offset = {t: body_start + i + 1 for i, line in enumerate(body)
-              if (m := re.match(r"^##\s+(.*)$", line)) and (t := m.group(1).strip())}
-    for core in CORE_SECTIONS:
-        if not any(core in t for t in titles):
-            err(f"缺少核心章节「{core}」")
+              if (m := H2_RE.match(line)) and (t := m.group(1).strip())}
 
-    section_map = {t: c for t, c in sections}
+    # ---- 核心章节：存在性 + 编号 + 顺序（编号是固定契约） ----
+    core_hits: list[tuple[int, int, str]] = []  # (文档内出现次序, 期望编号, 标题)
+    for idx, core in enumerate(CORE_SECTIONS, start=1):
+        match_title = next((t for t in titles if core in t), None)
+        if match_title is None:
+            err(f"缺少核心章节「{core}」")
+            continue
+        core_hits.append((len(core_hits), idx, match_title))
+        m = re.match(rf"^(\d+)\.\s+{re.escape(core)}", match_title)
+        if not m:
+            err(f"核心章节「{core}」缺少阿拉伯数字编号，应为「{idx}. {core}」", offset.get(match_title))
+        elif int(m.group(1)) != idx:
+            err(f"核心章节编号与顺序错乱：「{match_title}」应为「{idx}. {core}」", offset.get(match_title))
+    # 顺序检查：出现的核心章节编号应严格递增（缺章时跳过，不乱报编号错乱）
+    prev_idx = 0
+    for _, idx, t in core_hits:
+        if idx <= prev_idx:
+            err(f"核心章节顺序错乱：编号 {idx} 出现在编号 {prev_idx} 之后（「{t}」）", offset.get(t))
+        prev_idx = idx
 
     def find_section(core: str) -> tuple[str, list[str]] | None:
         for t, c in sections:
@@ -183,6 +215,10 @@ def check_entry(path: Path) -> list[tuple[str, str, int]]:
         first_line = lead_text.splitlines()[0]
         if title and not first_line.startswith(title):
             warn(f"导语首句不以概念名开头（标题应作第一句主语）：{first_line[:30]}...", lead_offset)
+        if "成熟度（status:" not in lead_text:
+            warn("导语缺少「成熟度（status: 值）」标注行（知识库不渲染 frontmatter 注释，读者靠正文理解字段）", lead_offset)
+        if "核实状态（verified:" not in lead_text:
+            warn("导语缺少「核实状态（verified: 值）」标注行（知识库不渲染 frontmatter 注释，读者靠正文理解字段）", lead_offset)
 
     # ---- 相关概念：Dead End 与裸链接 ----
     related = find_section("相关概念")
@@ -232,20 +268,75 @@ def check_entry(path: Path) -> list[tuple[str, str, int]]:
         if not "\n".join(c).strip():
             warn(f"章节「{t}」没有内容", offset.get(t))
 
-    # ---- 排版：加粗通胀与行宽（跳过代码块、表格行、标题、frontmatter） ----
-    fm_block = [(0, body_start)]
-    blocks_all = sorted(fm_block + [(body_start + s + 1, body_start + e + 1) for s, e in code_blocks(body)])
-    for i, line in enumerate(lines):
-        if in_code_block(i, blocks_all):
-            continue
-        if line.strip().startswith("|") or line.strip().startswith("#"):
-            continue
-        bold_count = line.count("**") // 2
-        if bold_count > 3:
-            warn(f"一行内加粗 {bold_count} 处（每段最多 2-3 处）", i + 1)
-        if len(line) > 100:
-            warn(f"正文行宽 {len(line)} 字符超过 100", i + 1)
+    check_typography(lines, body_start, add)
 
+
+def check_mode2(lines: list[str], add) -> None:
+    """模式二（成体系）：无 frontmatter，检查编号体系与基本结构。"""
+    err = lambda msg, line=0: add("ERROR", msg, line)
+    warn = lambda msg, line=0: add("WARN", msg, line)
+
+    h1_lines = [(i + 1, m.group(1).strip())
+                for i, line in enumerate(lines) if (m := H1_RE.match(line))]
+    if len(h1_lines) != 1:
+        err(f"H1 应有且仅有一个，实际 {len(h1_lines)} 个", 1)
+    if not h1_lines:
+        return
+
+    # H2：中文数字编号且连续；H3：x.y 编号与当前父章对应（同一遍历跟踪父章序号）
+    h2_entries = [(i + 1, m.group(1).strip())
+                  for i, line in enumerate(lines) if (m := H2_RE.match(line))]
+    if not h2_entries:
+        err("成体系文档没有任何 H2 章节", 1)
+    expected = 1
+    current_h2_num = 0
+    for i, line in enumerate(lines):
+        m2 = H2_RE.match(line)
+        if m2:
+            title = m2.group(1).strip()
+            cn = CN_NUM_RE.match(title)
+            if not cn:
+                err(f"H2「{title}」缺少中文数字编号（应为「一、二、三……」样式）", i + 1)
+            else:
+                num = CN_NUMERALS.index(cn.group(1)) + 1
+                if num != expected:
+                    err(f"H2 编号不连续：「{title}」应为「{CN_NUMERALS[expected-1]}、」", i + 1)
+                current_h2_num = num
+                expected = num + 1
+            continue
+        m3 = H3_RE.match(line)
+        if m3:
+            sub = SUB_NUM_RE.match(m3.group(1).strip())
+            if not sub:
+                warn(f"H3「{m3.group(1).strip()}」缺少 x.y 编号（如 1.1）", i + 1)
+            elif current_h2_num and int(sub.group(1)) != current_h2_num:
+                warn(f"H3 编号 {sub.group(1)}.{sub.group(2)} 与父章序号 {current_h2_num} 不对应", i + 1)
+
+    # 导语：H1 与第一个 H2 之间应有定位说明
+    first_h2 = min((i for i, line in enumerate(lines) if H2_RE.match(line)), default=len(lines))
+    lead_text = "\n".join(l for l in lines[1:first_h2] if not H1_RE.match(l)).strip()
+    if not lead_text:
+        warn("成体系文档缺少导语（H1 与第一个章节之间应有定位与结构总览）", 2)
+
+    check_typography(lines, 0, add)
+
+
+def check_entry(path: Path) -> list[tuple[str, str, int]]:
+    """返回 (级别, 规则说明, 行号) 列表；级别为 ERROR 或 WARN。"""
+    text = path.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    problems: list[tuple[str, str, int]] = []
+
+    def add(level: str, msg: str, line: int) -> None:
+        problems.append((level, msg, line))
+
+    fields, body_start = parse_frontmatter(text)
+    if fields:
+        check_mode1(lines, fields, body_start, add)
+    else:
+        # 无 frontmatter：判定为模式二（成体系文档）。条目忘写 frontmatter 时，
+        # 五章的阿拉伯编号会触发模式二的「H2 缺少中文数字编号」错误，仍会被发现。
+        check_mode2(lines, add)
     return problems
 
 

@@ -31,7 +31,7 @@
         "en": "Write Knowledge Doc",
         "zh-CN": "写知识文档"
       },
-      "description": "把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按「问题→解法→例子」骨架成文，frontmatter 标注成熟度与核实状态，遵守双读者排版规范，交付前完成读者测试与条目自检。",
+      "description": "把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按编号五章骨架成文，frontmatter 标注成熟度与核实状态，遵守双读者排版规范；用户明确要求调研报告或成体系文档时切换为成体系模式。交付前完成读者测试与文档自检。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-knowledge-doc.png"
     }
   ]
