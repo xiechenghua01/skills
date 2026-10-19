@@ -33,6 +33,17 @@
       },
       "description": "把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按编号五章骨架成文，frontmatter 标注成熟度与核实状态，遵守双读者排版规范；用户明确要求调研报告或成体系文档时切换为成体系模式。交付前完成读者测试与文档自检。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-knowledge-doc.png"
+    },
+    {
+      "name": "ste",
+      "source": "./ste",
+      "displayName": "STE",
+      "displayName_i18n": {
+        "en": "STE",
+        "zh-CN": "简化技术中文"
+      },
+      "description": "基于 ASD-STE100 的简化技术中文（STE-ZH）受控写作与审查规范。当用户输入专属触发词 ste、STE，或要求消除需求歧义、规范代码注释、设计定量 ADR 方案或输出解耦汇报时触发。",
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/ste.png"
     }
   ]
 }

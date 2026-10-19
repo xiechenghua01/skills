@@ -1,0 +1,4 @@
+interface:
+  display_name: "简化技术中文"
+  short_description: "按 STE-ZH 规范输出消歧技术中文、代码注释、方案与汇报"
+  default_prompt: "请使用 $ste 规范以下内容："

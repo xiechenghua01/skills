@@ -8,7 +8,7 @@
 
 1. 打开 ZCode **设置 → 插件管理 → 发现**，点击 **添加市场（+）**。
 2. 选择本仓库根目录。本机路径为 `/Users/xiechenghua/Codes/xch/skills`；在其他机器上使用实际克隆路径，不要选择某个技能子目录。
-3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json` 或 `write-knowledge-doc` 插件。仅添加市场不会自动安装技能。
+3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json`、`write-knowledge-doc` 或 `ste` 插件。仅添加市场不会自动安装技能。
 4. 安装并启用后，在技能设置或 `/` 菜单中确认技能可用。
 
 根目录的 `marketplace.json` 登记市场及插件来源，各技能目录中的 `.zcode-plugin/plugin.json` 声明插件信息。插件清单中的 `"skills": "."` 相对于插件根目录解析，直接加载已有的 `SKILL.md`，无需移动技能或附属资源。
@@ -31,6 +31,8 @@
 [**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。
 
 [**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按编号五章骨架成文，frontmatter 标注成熟度与核实状态，交付前完成读者测试与条目自检；用户要求调研报告或成体系文档时切换为成体系模式。
+
+[**ste**](./ste/SKILL.md) — 基于 ASD-STE100 本土化的简化技术中文（STE-ZH）受控写作与审查规范：输入专属触发词 `ste` 或 `STE` 触发，严守 3 个受控情态词与 10 个执行/验证解耦状态词，消灭虚化动词与长流水句，覆盖需求下发、代码注释、ADR 方案与闭环汇报。
 
 ## 扩展约定
 

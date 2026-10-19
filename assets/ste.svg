@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="ste">
+  <!-- 简化技术中文（STE-ZH / ASD-STE100）受控规范图标：
+       1. 外层直角规框「 」：象征 STE-ZH 最核心的受控引用规范，亦为工业图纸裁剪与对焦标框（消灭长句溢出与边界模糊）；
+       2. 内部两道受控文本线：两端圆润、长短递减，象征结论前置、一词一义、紧凑无歧义的技术中文；
+       3. 航空科技蓝底色（#0284C7）：呼应 ASD 航空航天工业标准的严谨与理性。 -->
+  <rect width="48" height="48" rx="11" ry="11" fill="#0284C7"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 左上受控直角规 / 引号 「 -->
+    <path d="M12 13 V23"/>
+    <path d="M12 13 H22"/>
+    <!-- 右下受控直角规 / 引号 」 -->
+    <path d="M36 25 V35"/>
+    <path d="M26 35 H36"/>
+    <!-- 内部被严格受控约束的技术文本行 -->
+    <path d="M18 21 H30"/>
+    <path d="M18 27 H26"/>
+  </g>
+</svg>
