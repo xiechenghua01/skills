@@ -4,6 +4,7 @@
     {
       "name": "git-commit",
       "source": "./git-commit",
+      "version": "0.1.1",
       "displayName": "Git Commit",
       "displayName_i18n": {
         "en": "Git Commit",
@@ -15,6 +16,7 @@
     {
       "name": "write-openapi-json",
       "source": "./write-openapi-json",
+      "version": "0.1.1",
       "displayName": "Write OpenAPI JSON",
       "displayName_i18n": {
         "en": "Write OpenAPI JSON",
@@ -26,6 +28,7 @@
     {
       "name": "write-knowledge-doc",
       "source": "./write-knowledge-doc",
+      "version": "0.1.1",
       "displayName": "Write Knowledge Doc",
       "displayName_i18n": {
         "en": "Write Knowledge Doc",
@@ -37,6 +40,7 @@
     {
       "name": "ste",
       "source": "./ste",
+      "version": "0.1.0",
       "displayName": "STE",
       "displayName_i18n": {
         "en": "STE",
