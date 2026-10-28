@@ -1,4 +1,4 @@
 interface:
   display_name: "简化技术中文"
-  short_description: "按 STE-ZH 规范输出消歧技术中文、代码注释、方案与汇报"
-  default_prompt: "请使用 $ste 规范以下内容："
+  short_description: "受控技术中文：写、审、改三条链，pragmatic 与 strict 两档"
+  default_prompt: "请使用 $ste 按简化技术中文规范处理以下内容："

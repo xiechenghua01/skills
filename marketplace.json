@@ -40,13 +40,13 @@
     {
       "name": "ste",
       "source": "./ste",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "displayName": "STE",
       "displayName_i18n": {
         "en": "STE",
         "zh-CN": "简化技术中文"
       },
-      "description": "基于 ASD-STE100 的简化技术中文（STE-ZH）受控写作与审查规范。当用户输入专属触发词 ste、STE，或要求消除需求歧义、规范代码注释、设计定量 ADR 方案或输出解耦汇报时触发。",
+      "description": "简化技术中文（STE-ZH）受控写作与审查：生成链按需求、注释、ADR、汇报四种文体写受控文本，理解链只出违规清单，编辑链按清单改写并复检；分 pragmatic 与 strict 两档强度。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/ste.png"
     }
   ]

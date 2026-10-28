@@ -1,6 +1,6 @@
 {
   "name": "ste",
-  "version": "0.1.1",
-  "description": "基于 ASD-STE100 的简化技术中文（STE-ZH）受控写作与审查规范。",
+  "version": "0.1.2",
+  "description": "简化技术中文（STE-ZH）受控写作与审查：生成链按需求、注释、ADR、汇报四种文体写受控文本，理解链只出违规清单，编辑链按清单改写并复检；分 pragmatic 与 strict 两档强度。",
   "skills": "."
 }
