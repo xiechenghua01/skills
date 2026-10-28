@@ -16,13 +16,13 @@
     {
       "name": "write-openapi-json",
       "source": "./write-openapi-json",
-      "version": "0.1.2",
+      "version": "0.1.4",
       "displayName": "Write OpenAPI JSON",
       "displayName_i18n": {
         "en": "Write OpenAPI JSON",
         "zh-CN": "编写接口契约"
       },
-      "description": "按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。",
+      "description": "按指定范围从真实代码生成、修订或审阅可导入 Apifox 的 OpenAPI 3.1 JSON：字段全部内联、只写 200 响应、逐字段中文说明与示例；编辑链支持单文件修订与跨文件迁移，审阅模式只出问题清单。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-openapi-json.png"
     },
     {

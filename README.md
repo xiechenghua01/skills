@@ -28,7 +28,7 @@
 
 [**git-commit**](./git-commit/SKILL.md) — 生成或改写 Git 提交：生成链判断改动边界、精确暂存、写中文 Conventional Commit 并复核；编辑链处理补漏、改信息、拆分、合并与调序。
 
-[**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。
+[**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定范围从真实代码生成、修订或审阅可导入 Apifox 的 OpenAPI 3.1 JSON：字段全部内联、只写 200 响应、逐字段中文说明与示例；编辑链支持单文件修订与跨文件迁移，审阅模式只出问题清单。
 
 [**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把技术知识沉淀成可检索的知识文档，并负责读懂与修订已有文档：生成链界定篇边界、按编号五章骨架成文、标注成熟度/核实状态/适用版本，并以理解链验收；理解链只凭文档回答读者问题；编辑链处理内容修订、结构调整与状态维护。
 

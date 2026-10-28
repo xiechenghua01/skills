@@ -1,6 +1,6 @@
 {
   "name": "write-openapi-json",
-  "version": "0.1.2",
-  "description": "按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。",
+  "version": "0.1.4",
+  "description": "按指定范围从真实代码生成、修订或审阅可导入 Apifox 的 OpenAPI 3.1 JSON：字段内联、只写 200、逐字段中文说明与示例；编辑链支持单文件修订与跨文件迁移，审阅模式只出清单。",
   "skills": "."
 }

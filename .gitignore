@@ -6,3 +6,5 @@
 .mimosa/
 /.zcode
 .workbuddy/
+__pycache__/
+*.pyc

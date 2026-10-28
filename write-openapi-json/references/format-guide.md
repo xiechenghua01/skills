@@ -53,6 +53,7 @@
 - POST、PUT、PATCH、DELETE 的 JSON Body 内联到 `requestBody`。
 - 没有请求体时省略 `requestBody`，没有查询或路径参数时仍保留空的 `parameters`。
 - 不写 `operationId`、公共参数引用或公共响应引用。
+- `summary` 会成为 Apifox 里的接口名（优先级 `summary` > `operationId` > 路径），所以它必须是人能读的业务名，不能是 Controller 方法名或英文动词短语。
 
 ## 参数格式
 
@@ -106,14 +107,35 @@
 ```
 
 - 使用内联 schema，不使用 `$ref`。
-- 先按接口真实读取参数的方式确定媒体类型：JSON body 用 `application/json`，文件/表单上传用 `multipart/form-data`（见下节）。不为了通过校验声明接口不接受的媒体类型；判定与冲突处理见 SKILL.md 的「媒体类型判定与冲突处理」。
+- 先按接口真实读取参数的方式确定媒体类型：JSON body 用 `application/json`，文件/表单上传用 `multipart/form-data`（见下节）。不为了通过校验声明接口不接受的媒体类型；判定方法与冲突处理见本文《媒体类型判定》。
 - 校验相关的描述从 Request、Service 实际代码提炼，写清真实校验条件与失败提示；可空字段、数组字段写清 `null`、空数组、缺省在新增与编辑场景下的差别。
 - 条件必填可以使用 OpenAPI 3.1 的 `if`、`then`、`allOf`。
-- 多个典型请求场景使用 `examples`，否则使用一个 `example`。
+- 多个典型请求场景时，媒体类型级可以用 `examples` 命名多组；字段级一律用单值 `example`，不要写成数组形式（理由见《为什么这样约束》）。
 - `schema.properties` 中的每个请求字段必须有中文 `description` 和字段级 `example`；媒体类型级 `example` 必须覆盖全部字段，包括可选字段。
 - 媒体类型级 `example` 用于 Apifox/Swagger UI 直接展示完整传参；不能只写字段结构而省略完整请求示例。
 - 完整示例必须位于 `content.application/json.example`，不能放在 `requestBody.example`，也不能用 `schema.example` 替代。
 - `parameters` 只放 query/path 参数；不要把 JSON Body 字段复制到 `parameters`。`parameters: []` 只表示接口确实没有 query/path 参数，不能表示遗漏了 `requestBody`。
+
+## 媒体类型判定
+
+写 `requestBody` 之前，先沿路由 → Controller → Request → Service 确认接口**真实怎么接收参数**，再决定声明哪种媒体类型。
+
+| 代码里的迹象 | 应声明的媒体类型 |
+|---|---|
+| Request 定义了 `rules()`/`scene()` 的字段规则，Controller 用 `$request->input()` / `validated()` | `application/json` |
+| Controller 用 `$request->file()` / `$request->hasFile()`，Request 没有 JSON body 规则 | `multipart/form-data` |
+| 只读 `$request->all()` 且是表单提交 | 表单形态，按真实情况声明 |
+| 直接读 `php://input` 原始流 | 纯二进制，按真实情况声明 |
+
+三条纪律：
+
+1. **接口真实同时支持多种形态时才同时声明多种**，并在 `description` 里说明各形态的字段差异；只支持一种就只写一种。
+2. **不为了通过校验补 `application/json` 镜像**。接口不接受 JSON 请求体时，镜像会让调用方按错误方式传参并直接失败。这是已发生过的事故，见 pitfalls 第 7 条。
+3. **脚本报错时先分类再动手**：是契约写漏/写错，就修契约；是接口本来不属于脚本假定的形态（纯 multipart、表单、纯二进制），就保留与代码一致的真实契约，在交付说明里写清未通过项、原因与结论。
+
+判定依据不明确时，在交付说明里写出判断过程和代码出处，不要凭接口名猜。
+
+---
 
 ## multipart 上传请求体
 
@@ -163,7 +185,7 @@ Controller 通过 `$request->file(...)`、`$request->hasFile()` 等读取文件�
 - 文件字段的字段级 `example` 使用符合规则的文件名（含扩展名），不使用二进制内容、加密值或真实敏感文件。
 - 除文件外的普通表单字段（如备注、场景标识、关联 ID）一并写入 `properties` 并给出中文说明和字段级 `example`，`required` 按真实规则。
 - 媒体类型级 `example` 是完整表单对象，放在 `content["multipart/form-data"].example`，字段集合与 `schema.properties` 一致，包括可选字段；文件字段的示例值用文件名。
-- 这类接口通常只声明 `multipart/form-data`；接口真实不接受 JSON 请求体时不补 `application/json` 镜像，副作用见 SKILL.md「媒体类型判定与冲突处理」。
+- 这类接口通常只声明 `multipart/form-data`；接口真实不接受 JSON 请求体时不补 `application/json` 镜像，理由见本文《媒体类型判定》与 pitfalls 第 7 条。
 
 ## 响应格式
 
@@ -289,6 +311,40 @@ Controller 通过 `$request->file(...)`、`$request->hasFile()` 等读取文件�
 - 只有一个接口时可用“领域 + 动作”，例如 `drone-detail.openapi.json`。
 - 不把 HTTP 方法、日期、开发者姓名或 `new`、`final` 写入文件名。
 - 范围跨多个无关业务域时先请求拆分，不制造含糊的大文件名。
+
+## 可空、必填、缺省是三件事
+
+| 概念 | 由谁表达 | 回答的问题 |
+|---|---|---|
+| 是否必填 | `required` 数组 | 这个字段必须出现吗 |
+| 是否可为 null | 类型数组，如 `["string", "null"]` | 出现时值可以是 null 吗 |
+| 缺省行为 | `description`（必要时加 `default`） | 不传时按什么处理 |
+
+三者混用是最常见的描述错误：把「可以不传」写成「可空」，或把「可空」写成「非必填」。三者都要分别声明，并写清新增与编辑场景的差别——例如「新增时不传按 0 处理，编辑时传 null 表示清空，编辑时不传表示不修改」。
+
+---
+
+## 文件与编码
+
+- UTF-8，**不带 BOM**：带 BOM 会让 JSON 解析器直接抛 `Unexpected UTF-8 BOM`。
+- 两空格缩进，**文件末尾保留一个换行**。
+- 不允许尾随逗号，不允许 Tab 缩进——严格解析会直接拒绝，报错信息通常不指向根因。
+
+---
+
+## 为什么这样约束
+
+三条冻结决策，被质疑过多次，结论已定：
+
+| 约束 | 理由 |
+|---|---|
+| 不写 `components` / `$ref`，字段全部内联 | 每份契约按业务域独立维护、独立导入；抽公共模型会让单文件失去自解释性，也让「哪份文件覆盖哪些接口」变模糊 |
+| 只写 `200` 响应 | 契约的用途是导入 Apifox 生成接口条目，错误码由实现侧业务约定表达；写进契约只会与真实行为脱节 |
+| 字段级示例用单值 `example`，不用 `examples` 数组 | 3.1 把 `schema.example` 标为 deprecated、推荐 `examples` 数组，但现行契约已按 `example` 全量导入验证；换数组的导入效果未验证，收益为零、风险非零 |
+
+要动这三条，先做一次真实导入验证，再同步修改本文件与 pitfalls 的冻结决策，不要只改一处。
+
+---
 
 ## 禁止项
 
