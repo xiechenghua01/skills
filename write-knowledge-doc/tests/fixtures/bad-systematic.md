@@ -1,6 +1,17 @@
+---
+title: 测试夹具：成体系文档编号违规
+kind: system
+applies_to: universal
+status: seedling
+verified: none
+created: 2026-10-13
+updated: 2026-10-13
+tags: [测试]
+---
+
 # 测试夹具：成体系文档编号违规
 
-本篇为模式二（成体系文档）的违规夹具：H2 缺少中文数字编号。
+本篇为成体系模式的违规夹具：H2 缺编号 + 跳号。
 
 ## 第一章节（无编号）
 

@@ -1,5 +1,7 @@
 ---
 title: 测试夹具：H1 不一致
+kind: entry
+applies_to: universal
 status: seedling
 created: 2026-10-13
 updated: 2026-10-13
@@ -12,6 +14,8 @@ verified: none
 测试夹具：H1 不一致是……（占位导语）
 
 适用场景：测试校验脚本。
+
+适用范围（applies_to: universal）：不随版本变化。
 
 成熟度（status: budding）：占位。
 

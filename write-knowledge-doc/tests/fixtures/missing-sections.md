@@ -1,5 +1,7 @@
 ---
 title: 测试夹具：缺章节
+kind: entry
+applies_to: universal
 status: budding
 created: 2026-10-13
 updated: 2026-10-13

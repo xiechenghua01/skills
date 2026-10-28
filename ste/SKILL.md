@@ -1,6 +1,10 @@
 ---
 name: ste
-description: 基于 ASD-STE100 本土化的简化技术中文（STE-ZH）受控写作与审查规范。当用户输入专属触发词 ste、STE（无论大小写、作为前缀或修饰语），或要求使用简化技术中文、改写/规范化技术文本、设计高保真技术方案/ADR、消除需求歧义、规范代码注释与错误断言、输出执行与验证解耦的闭环汇报时触发。
+display_name_zh: 简化技术中文
+display_name_en: STE
+description: "基于 ASD-STE100 本土化的简化技术中文（STE-ZH）受控写作与审查规范。当用户输入专属触发词 ste、STE（无论大小写、作为前缀或修饰语），或要求使用简化技术中文、改写/规范化技术文本、设计高保真技术方案/ADR、消除需求歧义、规范代码注释与错误断言、输出执行与验证解耦的闭环汇报时触发。"
+description_en: "Controlled writing and review rules for Simplified Technical Chinese (STE-ZH), localized from ASD-STE100. Trigger when the user types the dedicated keyword ste or STE (any case, as a prefix or modifier), or asks to use simplified technical Chinese, rewrite or normalize technical text, design a high-fidelity technical plan or ADR, remove requirement ambiguity, standardize code comments and error assertions, or produce a report that separates execution from verification."
+version: v20261028
 ---
 
 # 简化技术中文规范（STE-ZH）

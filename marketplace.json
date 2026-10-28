@@ -4,7 +4,7 @@
     {
       "name": "git-commit",
       "source": "./git-commit",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "displayName": "Git Commit",
       "displayName_i18n": {
         "en": "Git Commit",
@@ -16,7 +16,7 @@
     {
       "name": "write-openapi-json",
       "source": "./write-openapi-json",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "displayName": "Write OpenAPI JSON",
       "displayName_i18n": {
         "en": "Write OpenAPI JSON",
@@ -28,19 +28,19 @@
     {
       "name": "write-knowledge-doc",
       "source": "./write-knowledge-doc",
-      "version": "0.1.1",
+      "version": "0.1.4",
       "displayName": "Write Knowledge Doc",
       "displayName_i18n": {
         "en": "Write Knowledge Doc",
         "zh-CN": "写知识文档"
       },
-      "description": "把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按编号五章骨架成文，frontmatter 标注成熟度与核实状态，遵守双读者排版规范；用户明确要求调研报告或成体系文档时切换为成体系模式。交付前完成读者测试与文档自检。",
+      "description": "把技术知识沉淀成可检索的知识文档，并负责读懂与修订已有文档。三条链：生成（界定篇边界、按编号五章骨架成文、标注成熟度/核实状态/适用版本）、理解（只凭文档回答读者问题，兼作生成链验收）、编辑（改事实、补章节、拆分合并、更新状态与链接）。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/write-knowledge-doc.png"
     },
     {
       "name": "ste",
       "source": "./ste",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "displayName": "STE",
       "displayName_i18n": {
         "en": "STE",

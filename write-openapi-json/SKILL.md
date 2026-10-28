@@ -1,6 +1,10 @@
 ---
 name: write-openapi-json
-description: 根据用户指定的接口或业务范围，从实际代码和现有文档生成、补充或审阅 OpenAPI 3.1 JSON；遵循内联字段格式，自动按范围命名 *.openapi.json，完整描述真实请求和响应字段，且不写 components、鉴权、独立数据模型、$ref 或非 200 响应。用户要求编写 OpenAPI、Apifox 导入文件、接口契约 JSON、补充接口返回字段或按代码整理接口文档时使用。
+display_name_zh: 编写接口契约
+display_name_en: Write OpenAPI JSON
+description: "根据用户指定的接口或业务范围，从实际代码和现有文档生成、补充或审阅 OpenAPI 3.1 JSON；遵循内联字段格式，自动按范围命名 *.openapi.json，完整描述真实请求和响应字段，且不写 components、鉴权、独立数据模型、$ref 或非 200 响应。用户要求编写 OpenAPI、Apifox 导入文件、接口契约 JSON、补充接口返回字段或按代码整理接口文档时使用。"
+description_en: "Generate, extend, or review OpenAPI 3.1 JSON for the endpoints or business scope the user names, working from the actual code and existing documents: inline field schemas only, file auto-named *.openapi.json after the scope, real request and response fields fully described, and no components, auth, separate data models, $ref, or non-200 responses. Use when the user asks to write OpenAPI, build an Apifox import file, author an API contract JSON, add missing response fields, or document endpoints from code."
+version: v20261028
 ---
 
 # Write OpenAPI JSON

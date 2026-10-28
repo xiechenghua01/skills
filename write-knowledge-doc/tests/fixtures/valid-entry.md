@@ -1,5 +1,7 @@
 ---
 title: 幂等
+kind: entry
+applies_to: universal
 status: budding
 created: 2026-10-13
 updated: 2026-10-13
@@ -12,6 +14,8 @@ verified: none
 幂等是指同一个操作执行一次和执行多次，对系统最终状态的影响相同。
 
 适用场景：设计接口重试策略、处理消息重复投递、排查支付回调或下单接口的重复扣款时。
+
+适用范围（applies_to: universal）：不随版本变化。
 
 成熟度（status: budding）：已用自己的话重写、可以链接；概念尚未完全定稿。
 

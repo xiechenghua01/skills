@@ -1,6 +1,17 @@
+---
+title: 测试夹具：成体系文档
+kind: system
+applies_to: universal
+status: budding
+verified: partial
+created: 2026-10-13
+updated: 2026-10-13
+tags: [测试]
+---
+
 # 测试夹具：成体系文档
 
-本篇为模式二（成体系文档）的合规夹具：无 frontmatter，H2 用中文数字编号，H3 用 x.y 编号。
+本篇为成体系模式的合规夹具：H2 用中文数字编号，H3 用 x.y 编号。
 
 ## 一、第一章节
 

@@ -30,7 +30,7 @@
 
 [**write-openapi-json**](./write-openapi-json/SKILL.md) — 按指定接口或业务范围追踪实际代码，生成、补充或审阅无组件引用的 OpenAPI 3.1 JSON，并完成结构校验。
 
-[**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把指定的一类技术知识整理为条目式知识文档：界定单篇边界，按编号五章骨架成文，frontmatter 标注成熟度与核实状态，交付前完成读者测试与条目自检；用户要求调研报告或成体系文档时切换为成体系模式。
+[**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把技术知识沉淀成可检索的知识文档，并负责读懂与修订已有文档：生成链界定篇边界、按编号五章骨架成文、标注成熟度/核实状态/适用版本，并以理解链验收；理解链只凭文档回答读者问题；编辑链处理内容修订、结构调整与状态维护。
 
 [**ste**](./ste/SKILL.md) — 基于 ASD-STE100 本土化的简化技术中文（STE-ZH）受控写作与审查规范：输入专属触发词 `ste` 或 `STE` 触发，严守 3 个受控情态词与 10 个执行/验证解耦状态词，消灭虚化动词与长流水句，覆盖需求下发、代码注释、ADR 方案与闭环汇报。
 
@@ -39,7 +39,7 @@
 新增技能时：
 
 1. 使用 kebab-case 命名独立目录，并在其中提供 `SKILL.md`。
-2. 在 `SKILL.md` 的 frontmatter 中填写准确的 `name` 和触发描述 `description`。
+2. 在 `SKILL.md` 的 frontmatter 中填写六个字段：`name`、`display_name_zh`、`display_name_en`、`description`、`description_en`、`version`（`v` + 内容定稿日期，如 `v20261028`）。两个 `description` 都写成一行并用双引号包裹，内部不要出现 ASCII 双引号。
 3. 按需添加 `agents/openai.yaml`，维护技能在 Codex 中的展示名称、简短说明和默认提示词。
 4. 根据调用策略，将技能链接和一句话说明加入上方对应分区。
 5. 仅允许用户显式调用的技能，需要在 `agents/openai.yaml` 中设置 `policy.allow_implicit_invocation: false`。

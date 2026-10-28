@@ -1,6 +1,10 @@
 ---
 name: git-commit
-description: Create or prepare tightly scoped Git commits with Chinese Conventional Commit messages and staged-diff verification. Use when the user asks to commit, stage and commit, submit changes, prepare a commit message, fix an unpushed nonconforming commit, or says phrases such as "提交改动", "提交全部改动", or "commit these changes" in any Git repository.
+display_name_zh: 提交改动
+display_name_en: Git Commit
+description: "检查改动范围、验证暂存内容，并创建范围准确的中文 Conventional Commit；也能修正尚未推送的不合规提交。用户要求提交改动、暂存后提交、准备提交信息，或说出「提交改动」「提交全部改动」「commit these changes」这类话时使用，适用于任何 Git 仓库。"
+description_en: "Create or prepare tightly scoped Git commits with Chinese Conventional Commit messages and staged-diff verification, and fix an unpushed nonconforming commit. Use when the user asks to commit, stage and commit, submit changes, prepare a commit message, or says phrases such as “提交改动”, “提交全部改动”, or “commit these changes” in any Git repository."
+version: v20261028
 ---
 
 # git-commit

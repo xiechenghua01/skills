@@ -1,6 +1,6 @@
 {
   "name": "ste",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "基于 ASD-STE100 的简化技术中文（STE-ZH）受控写作与审查规范。",
   "skills": "."
 }

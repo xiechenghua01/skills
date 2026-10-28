@@ -1,4 +1,4 @@
 interface:
   display_name: "写知识文档"
-  short_description: "按调研规范把一类知识整理成条目式知识文档"
+  short_description: "写、读、改技术知识文档：五章骨架成文，理解链验收，编辑链管修订"
   default_prompt: "使用 $write-knowledge-doc 把「<知识点>」整理成一篇条目式知识文档。"

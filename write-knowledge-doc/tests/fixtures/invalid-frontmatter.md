@@ -1,5 +1,7 @@
 ---
 title: 测试夹具：frontmatter 违规
+kind: entry
+applies_to: universal
 status: draft
 created: 2026/10/13
 updated: 2026-10-13
@@ -11,6 +13,8 @@ tags: []
 frontmatter 违规夹具是……（占位导语）
 
 适用场景：测试校验脚本。
+
+适用范围（applies_to: universal）：不随版本变化。
 
 成熟度（status: budding）：占位。
 
