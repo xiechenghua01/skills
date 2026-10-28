@@ -1,4 +1,4 @@
 interface:
   display_name: "提交改动"
-  short_description: "按实际改动范围创建中文 Conventional Commit"
+  short_description: "生成或改写 Git 提交：范围判定、精确暂存、中文信息、历史拆合"
   default_prompt: "使用 $git-commit 检查当前改动并创建范围准确的中文 Conventional Commit。"

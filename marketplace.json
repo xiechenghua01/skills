@@ -4,13 +4,13 @@
     {
       "name": "git-commit",
       "source": "./git-commit",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "displayName": "Git Commit",
       "displayName_i18n": {
         "en": "Git Commit",
         "zh-CN": "提交改动"
       },
-      "description": "检查改动范围、验证暂存内容，并创建范围准确的中文 Conventional Commit。",
+      "description": "生成或改写 Git 提交：生成链判断改动边界、精确暂存、写中文 Conventional Commit 并复核；编辑链处理补漏、改信息、拆分、合并与调序。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/git-commit.png"
     },
     {
