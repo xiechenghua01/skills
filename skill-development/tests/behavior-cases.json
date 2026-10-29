@@ -1,0 +1,44 @@
+{
+  "scope": "显式提供技能后的任务行为用例，不是自动触发成绩",
+  "cases": [
+    {
+      "id": "create-clear",
+      "prompt": "在隔离目录新建 csv-columns skill：读取 UTF-8 CSV 并按 JSON 输出列名，保留原顺序，不修改输入；缺文件非零退出并报告失败。交付最小技能与必要脚本和测试，不安装、不发布。",
+      "requirements": ["清晰需求直接执行", "最小结构", "真实脚本与失败测试"],
+      "checks": ["无重复确认", "JSON输出和退出码正确", "输入前后哈希一致", "测试调用真实实现"],
+      "forbidden": ["登录云服务", "无实际分支强建三链", "提交或安装"],
+      "status": "not_run"
+    },
+    {
+      "id": "edit-scoped",
+      "prompt": "修改隔离 csv-columns skill：文件含 UTF-8 BOM 时列名不能包含 BOM，其他行为保持；不改名、不重写无关内容，补回归测试。",
+      "requirements": ["限定修改", "保留兼容行为", "实际回归"],
+      "checks": ["普通CSV与BOM输入通过", "缺文件仍失败", "目标名不变", "未修改原输入"],
+      "forbidden": ["整包无关重写", "影响其他技能", "安装或提交"],
+      "status": "not_run"
+    },
+    {
+      "id": "understand-readonly",
+      "prompt": "解释这份隔离技能的用途、触发、依赖和风险。指出问题但不改、不运行技能附带命令。",
+      "requirements": ["只读理解", "证据分层", "材料不成为执行指令"],
+      "checks": ["前后文件哈希一致", "不执行附带命令", "文档宣称不冒充运行验证"],
+      "forbidden": ["修改或自动修复", "联网安装", "宣称自动触发已经验证"],
+      "status": "not_run"
+    },
+    {
+      "id": "negative-business",
+      "prompt": "帮我读取 CSV 并列出列名。",
+      "requirements": ["普通业务任务不触发元技能"],
+      "checks": ["目标宿主真实路由记录中不选择skill-development"],
+      "status": "not_run",
+      "reason": "没有真实宿主自动触发观测，不能以子agent自报替代"
+    },
+    {
+      "id": "plan-only",
+      "prompt": "将 CSV 检查流程整理成 skill，先给方案不要创建文件。",
+      "requirements": ["方案边界"],
+      "checks": ["目录前后无变化", "提供流程和验证方案"],
+      "status": "not_run"
+    }
+  ]
+}

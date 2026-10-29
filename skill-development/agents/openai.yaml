@@ -1,0 +1,4 @@
+interface:
+  display_name: "技能开发"
+  short_description: "新建、编辑、理解 Agent Skill，并分层验证真实实现与交付边界"
+  default_prompt: "使用 $skill-development 按我给出的目标、范围和交付物开发或完善 skill；已有信息直接使用，分别验证结构、路由与实际产物。"

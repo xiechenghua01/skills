@@ -8,7 +8,7 @@
 
 1. 打开 ZCode **设置 → 插件管理 → 发现**，点击 **添加市场（+）**。
 2. 选择本仓库根目录。本机路径为 `/Users/xiechenghua/Codes/xch/skills`；在其他机器上使用实际克隆路径，不要选择某个技能子目录。
-3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json`、`write-knowledge-doc` 或 `ste` 插件。仅添加市场不会自动安装技能。
+3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json`、`write-knowledge-doc`、`ste` 或 `skill-development` 插件。仅添加市场不会自动安装技能。
 4. 安装并启用后，在技能设置或 `/` 菜单中确认技能可用。
 
 根目录的 `marketplace.json` 登记市场及插件来源，各技能目录中的 `.zcode-plugin/plugin.json` 声明插件信息。插件清单中的 `"skills": "."` 相对于插件根目录解析，直接加载已有的 `SKILL.md`，无需移动技能或附属资源。
@@ -33,6 +33,10 @@
 [**write-knowledge-doc**](./write-knowledge-doc/SKILL.md) — 把技术知识沉淀成可检索的知识文档，并负责读懂与修订已有文档：生成链界定篇边界、按编号五章骨架成文、标注成熟度/核实状态/适用版本，并以理解链验收；理解链只凭文档回答读者问题；编辑链处理内容修订、结构调整与状态维护。
 
 [**ste**](./ste/SKILL.md) — 基于 ASD-STE100 本土化的简化技术中文（STE-ZH）受控写作与审查：生成链按需求、注释、ADR、汇报四种文体写受控文本，理解链只出违规清单，编辑链按清单改写并复检；分 pragmatic 与 strict 两档强度，严守受控情态词与执行/验证解耦状态词。
+
+[**skill-development**](./skill-development/SKILL.md) — 新建、编辑与理解 Agent Skill：清晰需求直接推进，按最小结构实现，分别验证静态契约、任务路由、真实产物与可选对照；理解默认只读，安装和发布不包含在开发授权中。
+
+可显式调用 `/skill-development`，或在 Codex 使用 `$skill-development`。新增源码和市场登记不等于已安装；安装启用后才验证目标宿主的实际触发。
 
 ## 扩展约定
 

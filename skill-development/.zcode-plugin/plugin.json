@@ -1,0 +1,6 @@
+{
+  "name": "skill-development",
+  "version": "0.1.0",
+  "description": "新建、编辑与理解 Agent Skill：清晰需求直接推进，按最小结构实现，并区分静态、触发、执行与对照验证。",
+  "skills": "."
+}
