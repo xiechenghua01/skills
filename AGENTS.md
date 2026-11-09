@@ -37,3 +37,24 @@ version: v<YYYYMMDD>
 - description_en 重写而非直译，覆盖英文用户的实际说法。
 
 提交前跑 `python3 scripts/check-skill-headers.py --strict` 校验头部与两处包版本；再按本节核对每个技能是否需要升版。未获提交授权时不得执行 commit。
+
+## DSH 技能市场索引（硬性要求）
+
+根目录 `index.json` 是 DeepSeek Harness（DSH）技能市场索引（Skill Market Index Format 1），让同一批技能既能在 ZCode 插件市场安装，也能在 DSH 的「技能 → 市场」中安装。它由脚本生成，不是手写文件。
+
+1. **只由脚本生成**：运行 `python3 scripts/build-skill-market-index.py` 生成或更新；不要手改 `index.json`。需要校验时运行 `--check`，它会回查索引里每个文件 URL 指向的 commit 与 sha256。
+2. **索引输入必须已提交**：生成前，`marketplace.json` 与各技能目录不能有未提交改动（脚本会拒绝）。根文档（`README.md`、`AGENTS.md`）与 `scripts/` 的未提交改动不影响索引，可以先生成索引再一起提交。
+3. **不参与包版本递增**：`index.json` 是生成产物。重新生成索引本身不是技能改动，不因此递增任何技能的 `x.y.z`；只有技能内容实际变化才按上一节升版。
+4. **技能与索引分两次提交**：索引要固定自己的 commit sha，无法与技能改动放进同一个 commit。先提交技能改动并推送，再生成索引、单独提交。
+   ```bash
+   # 1. 技能改动（按上一节升版）并推送
+   python3 scripts/check-skill-headers.py --strict
+   git add -A && git commit -m "feat(...): ..." && git push
+
+   # 2. 索引固定到刚提交的 commit，单独提交
+   python3 scripts/build-skill-market-index.py
+   python3 scripts/build-skill-market-index.py --check
+   git add index.json && git commit -m "chore(index): rebuild skill market index" && git push
+   ```
+5. **已发布内容冻结**：索引里的文件 URL 固定到 40 位 commit。已推送的 commit 不要再 amend / rebase / force-push，否则已安装用户校验失败；内容有变就必须升版本并重新生成索引（脚本会拒绝同版本内容变化）。
+6. **隐藏目录不进索引**：`.zcode-plugin/`、`node_modules`、以 `.` 开头的文件不会进入索引，也不影响 ZCode 安装。技能里的附属文件（`references/`、`scripts/`、`tests/`、`agents/`）会一起进索引，所以技能必须自包含：相对链接不要指向技能目录之外。

@@ -1,0 +1,33 @@
+name: validate-skill-market
+
+# 校验两件事：
+# 1. 每个 SKILL.md 的头部六字段与两处包版本一致（AGENTS.md「SKILL.md 头部与内容版本」）；
+# 2. DSH 技能市场索引 index.json 自身合法，且里面每个文件 URL 指向的 commit 内容与
+#    sha256/size 一致（AGENTS.md「DSH 技能市场索引」）。
+#
+# 索引是否已经跟上最新技能改动，用本地的 `python3 scripts/build-skill-market-index.py --check`
+# 检查；CI 加 --stale-ok，避免技能提交后、索引重建前 main 一直报红。
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # --check 要用 git cat-file 读取索引里固定 commit 的文件，必须拿到完整历史。
+          fetch-depth: 0
+
+      - name: 校验 SKILL.md 头部与包版本
+        run: python3 scripts/check-skill-headers.py --strict
+
+      - name: 校验 DSH 技能市场索引
+        run: python3 scripts/build-skill-market-index.py --check --stale-ok

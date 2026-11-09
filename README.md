@@ -13,6 +13,27 @@
 
 根目录的 `marketplace.json` 登记市场及插件来源，各技能目录中的 `.zcode-plugin/plugin.json` 声明插件信息。插件清单中的 `"skills": "."` 相对于插件根目录解析，直接加载已有的 `SKILL.md`，无需移动技能或附属资源。
 
+## 在 DeepSeek Harness 中安装
+
+同一个仓库也发布 DSH 技能市场索引（Skill Market Index Format 1），因此不用改任何技能文件，就能把同一批技能装进 DeepSeek Harness（DSH）。两份市场各管一条安装链路，互不影响：`marketplace.json` 给 ZCode，根目录 `index.json` 给 DSH。
+
+1. 打开 DSH 的「技能」面板，切到 **市场**，点击添加源。
+2. 填入索引地址：`https://raw.githubusercontent.com/xiechenghua01/skills/main/index.json`
+3. 刷新市场，搜索或浏览技能，选择安装。默认落到用户级技能目录 `~/.dsh/skills/<技能名>/`。
+4. 安装后刷新技能列表，即可在 `/` 菜单或模型自动选择中看到这些技能。
+
+DSH 安装器会校验每个文件的 sha256 与大小，索引里的文件 URL 固定到具体 commit，所以内容不会在安装过程中漂移。安装后的技能目录只包含技能自身文件（`.zcode-plugin/` 等隐藏目录被跳过），`~/.dsh/skills/<技能名>/` 可被 DSH 直接扫描加载。
+
+维护者发布索引的流程见 [AGENTS.md](./AGENTS.md) 的「DSH 技能市场索引」，命令是：
+
+```bash
+python3 scripts/build-skill-market-index.py          # 生成 / 更新 index.json
+python3 scripts/build-skill-market-index.py --check  # 只校验
+python3 scripts/build-skill-market-index.py --latest # 每个技能只保留最新版本
+```
+
+索引只在技能内容提交并推送后生成、单独提交；`index.json` 是生成产物，不参与技能包版本递增。
+
 ## 调用方式
 
 技能按调用策略分为两类：
@@ -51,11 +72,15 @@
 7. 在根目录 `marketplace.json` 的 `plugins` 中登记同名插件，`source` 使用相对仓库根目录的路径，例如 `./<skill-name>`。
 8. 在同一条目中填写 `displayName` 和 `displayName_i18n`，让插件在中文界面显示中文名，见下方「插件显示名」。
 9. 需要展示图标时，把图标放入根目录 `assets/`，并在 `marketplace.json` 该插件的 `icon` 字段填入其 HTTPS 地址。
+10. 技能内容提交并推送后，运行 `python3 scripts/build-skill-market-index.py` 重新生成 `index.json` 并单独提交，DSH 市场才会拿到新版本（详见 [AGENTS.md](./AGENTS.md)）。
 
 推荐的最小目录结构：
 
 ```text
 marketplace.json
+index.json
+scripts/
+└── build-skill-market-index.py
 assets/
 └── <skill-name>.png
 <skill-name>/
