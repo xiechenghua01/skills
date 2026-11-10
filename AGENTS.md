@@ -58,3 +58,5 @@ version: v<YYYYMMDD>
    ```
 5. **已发布内容冻结**：索引里的文件 URL 固定到 40 位 commit。已推送的 commit 不要再 amend / rebase / force-push，否则已安装用户校验失败；内容有变就必须升版本并重新生成索引（脚本会拒绝同版本内容变化）。
 6. **隐藏目录不进索引**：`.zcode-plugin/`、`node_modules`、以 `.` 开头的文件不会进入索引，也不影响 ZCode 安装。技能里的附属文件（`references/`、`scripts/`、`tests/`、`agents/`）会一起进索引，所以技能必须自包含：相对链接不要指向技能目录之外。
+7. **文件分发走 jsDelivr**：索引里的文件 URL 与图标统一为 `https://cdn.jsdelivr.net/gh/<owner>/<repo>@<40 位 commit>/<path>`，不用 `raw.githubusercontent.com`。原因有两条：`@commit` 的内容不可变，可吃到 jsDelivr 的永久缓存；jsDelivr 背后聚合多家 CDN，比 raw 更抗网络抖动（实测 raw 会间歇性 TLS 中断，返回 000）。换分发入口只替换 URL、不改 sha256，所以不破坏第 5 条的冻结语义；已发布版本的 URL 会在重新生成时按各自 `pin_commit` 重写，指向的仍是同一份字节。
+8. **索引入口用 `@main`**：对外提供的索引地址是 `https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/index.json`。分支地址走 12 小时缓存，因此索引改动最多 12 小时才全网生效；不要为此把入口改成 `@commit`，那会让每次发版都要用户重填地址。

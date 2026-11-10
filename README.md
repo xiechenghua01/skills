@@ -18,11 +18,15 @@
 同一个仓库也发布 DSH 技能市场索引（Skill Market Index Format 1），因此不用改任何技能文件，就能把同一批技能装进 DeepSeek Harness（DSH）。两份市场各管一条安装链路，互不影响：`marketplace.json` 给 ZCode，根目录 `index.json` 给 DSH。
 
 1. 打开 DSH 的「技能」面板，切到 **市场**，点击添加源。
-2. 填入索引地址：`https://raw.githubusercontent.com/xiechenghua01/skills/main/index.json`
+2. 填入索引地址：`https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/index.json`
 3. 刷新市场，搜索或浏览技能，选择安装。默认落到用户级技能目录 `~/.dsh/skills/<技能名>/`。
 4. 安装后刷新技能列表，即可在 `/` 菜单或模型自动选择中看到这些技能。
 
-DSH 安装器会校验每个文件的 sha256 与大小，索引里的文件 URL 固定到具体 commit，所以内容不会在安装过程中漂移。安装后的技能目录只包含技能自身文件（`.zcode-plugin/` 等隐藏目录被跳过），`~/.dsh/skills/<技能名>/` 可被 DSH 直接扫描加载。
+索引与技能文件都经 jsDelivr（`cdn.jsdelivr.net`）分发，不用 `raw.githubusercontent.com`：后者在部分网络下会 TLS 中断，直接越过宿主的索引源超时预算；jsDelivr 背后聚合多家 CDN，可达性更稳。
+
+`@main` 是分支地址，走 jsDelivr 的 12 小时分支缓存，所以索引改动最多 12 小时后才全网生效。已安装的技能不受影响——它们的文件 URL 固定到具体 commit，是永久缓存。
+
+DSH 安装器会校验每个文件的 sha256 与大小，索引里的文件 URL 固定到具体 commit 并走 jsDelivr，内容不会在安装过程中漂移。安装后的技能目录只包含技能自身文件（`.zcode-plugin/` 等隐藏目录被跳过），`~/.dsh/skills/<技能名>/` 可被 DSH 直接扫描加载。
 
 维护者发布索引的流程见 [AGENTS.md](./AGENTS.md) 的「DSH 技能市场索引」，命令是：
 

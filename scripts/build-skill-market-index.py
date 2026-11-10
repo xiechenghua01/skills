@@ -16,9 +16,12 @@
 规则：
 - marketplace.json 的每个插件 = 索引里的一个技能；包版本取插件条目的 x.y.z。
 - 索引里的展示名/描述复用 SKILL.md frontmatter 与 marketplace.json，不另写一套短描述。
-- 文件 URL 固定到当前 HEAD（40 位 commit），附带 sha256 与 size；隐藏目录
-  （.zcode-plugin/ 等）和 node_modules 不进入索引，因此不影响 ZCode 安装。
-- 图标从 jsDelivr @main 地址改写为同一 commit 的 raw URL，避免缓存漂移。
+- 文件 URL 固定到当前 HEAD（40 位 commit），经 jsDelivr 分发，附带 sha256 与 size；
+  隐藏目录（.zcode-plugin/ 等）和 node_modules 不进入索引，因此不影响 ZCode 安装。
+- 图标从 jsDelivr @main 地址改写为同一 commit 的 jsDelivr @commit 地址，避免缓存漂移。
+- 为什么走 jsDelivr 而不是 raw.githubusercontent.com：@commit 地址内容不可变，可吃
+  jsDelivr 的永久缓存；且 cdn.jsdelivr.net 背后是多 CDN 冗余，实测在本机网络下稳定
+  返回，而 raw 会间歇性 TLS 中断（HTTP 000）。索引与技能文件因此共用一个分发入口。
 - 已发布 name@version 的内容一旦变化即拒绝生成（版本不可变），要求先升版本。
 - 生成要求工作区干净（索引必须固定已提交的内容），但允许 index.json 自身处于修改状态。
 - --check 回查索引里每个文件 URL 指向的 commit/path 是否存在且 sha256/size 与索引一致。
@@ -62,6 +65,10 @@ FRONTMATTER_LINE = re.compile(r"^([A-Za-z_][\w-]*):\s*(.*)$")
 GITHUB_REMOTE = re.compile(
     r"^(?:https://github\.com/|git@github\.com:)([^/]+)/([^/]+?)(?:\.git)?/?$"
 )
+
+# 技能文件的分发入口。jsDelivr 的 gh 端点支持 40 位 commit 作为版本段，内容不可变，
+# 因此可享永久缓存；同时它背后聚合多家 CDN，比 raw.githubusercontent.com 更抗网络抖动。
+CDN_PREFIX = "https://cdn.jsdelivr.net/gh"
 
 
 def fail(message: str) -> None:
@@ -159,7 +166,7 @@ def skill_files(skill_dir: Path, source: str, commit: str, repo: tuple[str, str]
         files.append(
             {
                 "path": relative,
-                "url": raw_url(repo, commit, f"{source}/{relative}"),
+                "url": file_url(repo, commit, f"{source}/{relative}"),
                 "sha256": hashlib.sha256(data).hexdigest(),
                 "size": len(data),
             }
@@ -174,9 +181,9 @@ def skill_files(skill_dir: Path, source: str, commit: str, repo: tuple[str, str]
     return files
 
 
-def raw_url(repo: tuple[str, str], commit: str, relative: str) -> str:
+def file_url(repo: tuple[str, str], commit: str, relative: str) -> str:
     owner, name = repo
-    return f"https://raw.githubusercontent.com/{owner}/{name}/{commit}/{relative}"
+    return f"{CDN_PREFIX}/{owner}/{name}@{commit}/{relative}"
 
 
 def icon_repo_path(value: str | None, repo: tuple[str, str]) -> str | None:
@@ -257,6 +264,13 @@ def build_document(repo: tuple[str, str], commit: str, latest_only: bool) -> dic
             if old_sha != new_sha:
                 fail(f"{name}@{version}：内容已变化但版本未升，请先升版本")
             pin_commit = previous_version["source"]["commit"]
+            # 版本冻结锁的是内容（sha256/size），不是分发地址。分发策略调整时按 pin_commit
+            # 重写 URL，指向的仍是同一 commit 的同一份字节，因此不破坏不可变语义。
+            files = [
+                {**item, "url": file_url(repo, pin_commit, f"{source}/{item['path']}")}
+                for item in files
+            ]
+            previous_version["files"] = files
         else:
             files = skill_files(skill_dir, source, commit, repo)
             timestamp = int(
@@ -309,7 +323,7 @@ def build_document(repo: tuple[str, str], commit: str, latest_only: bool) -> dic
                     f"{name}：图标 {icon_path} 不在 commit {pin_commit[:12]} 中，"
                     "请先提交图标再生成索引"
                 )
-            entry["icon"] = raw_url(repo, pin_commit, icon_path)
+            entry["icon"] = file_url(repo, pin_commit, icon_path)
         elif icon:
             entry["icon"] = icon
         skills.append(entry)
@@ -402,13 +416,14 @@ def check_document(repo: tuple[str, str], stale_ok: bool = False) -> None:
                     problems.append(f"{name}@{version_text}: {problem}")
                 url = item.get("url", "")
                 match = re.match(
-                    rf"^https://raw\.githubusercontent\.com/"
-                    rf"{re.escape(repo[0])}/{re.escape(repo[1])}/([0-9a-f]{{40}})/(.+)$",
+                    rf"^{re.escape(CDN_PREFIX)}/"
+                    rf"{re.escape(repo[0])}/{re.escape(repo[1])}@([0-9a-f]{{40}})/(.+)$",
                     url,
                 )
                 if match is None:
                     problems.append(
-                        f"{name}@{version_text}: 文件 URL 未固定到 {repo[0]}/{repo[1]} 的 40 位 commit：{url}"
+                        f"{name}@{version_text}: 文件 URL 未固定到 {repo[0]}/{repo[1]} 的 40 位"
+                        f" commit，或未经 jsDelivr 分发（应为 {CDN_PREFIX}/…）：{url}"
                     )
                     continue
                 pin_commit, target = match.group(1), match.group(2)
