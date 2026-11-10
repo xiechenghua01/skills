@@ -7,6 +7,10 @@ name: validate-skill-market
 #
 # 索引是否已经跟上最新技能改动，用本地的 `python3 scripts/build-skill-market-index.py --check`
 # 检查；CI 加 --stale-ok，避免技能提交后、索引重建前 main 一直报红。
+#
+# validate 通过后，push 到 main 会额外跑一个 purge job：索引入口是
+# cdn.jsdelivr.net/gh/<owner>/<repo>@main/index.json，分支地址默认缓存 12 小时，
+# 调用 jsDelivr 的公开 purge 端点可立即失效，省去等自然过期（AGENTS.md 第 8 条）。
 
 on:
   pull_request:
@@ -31,3 +35,16 @@ jobs:
 
       - name: 校验 DSH 技能市场索引
         run: python3 scripts/build-skill-market-index.py --check --stale-ok
+
+  purge:
+    # 只在 main 上的 push 后刷新；PR 与手动触发不改线上内容，不必清缓存。
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: 刷新 jsDelivr 分支缓存
+        # purge 只是体验优化，不是正确性要求：限流或端点抖动时只告警不报红，
+        # 索引最迟 12 小时会自然过期，用户侧仍能拿到正确内容。
+        run: |
+          curl -fsS -m 30 "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/index.json" \
+            || echo "::warning::jsDelivr purge 失败，索引将在 12 小时内自然过期"

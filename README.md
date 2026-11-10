@@ -24,7 +24,7 @@
 
 索引与技能文件都经 jsDelivr（`cdn.jsdelivr.net`）分发，不用 `raw.githubusercontent.com`：后者在部分网络下会 TLS 中断，直接越过宿主的索引源超时预算；jsDelivr 背后聚合多家 CDN，可达性更稳。
 
-`@main` 是分支地址，走 jsDelivr 的 12 小时分支缓存，所以索引改动最多 12 小时后才全网生效。已安装的技能不受影响——它们的文件 URL 固定到具体 commit，是永久缓存。
+`@main` 是分支地址，默认走 jsDelivr 的 12 小时分支缓存。仓库的 CI 在每次推送到 `main` 后会调用 purge 端点主动刷新，通常几分钟内生效；个别 CDN 节点没清到时，最迟 12 小时自然过期。已安装的技能不受影响——它们的文件 URL 固定到具体 commit，是永久缓存。
 
 DSH 安装器会校验每个文件的 sha256 与大小，索引里的文件 URL 固定到具体 commit 并走 jsDelivr，内容不会在安装过程中漂移。安装后的技能目录只包含技能自身文件（`.zcode-plugin/` 等隐藏目录被跳过），`~/.dsh/skills/<技能名>/` 可被 DSH 直接扫描加载。
 
