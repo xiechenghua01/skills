@@ -39,44 +39,44 @@
           "files": [
             {
               "path": "SKILL.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/SKILL.md",
               "sha256": "3ff23632b7d0d02931e88f6bc5d4f57b3039d5abc13e2ea0539d9b122b5c1686",
               "size": 3094
             },
             {
               "path": "agents/openai.yaml",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/agents/openai.yaml",
               "sha256": "e149318212c670f28ff2574fbf185101d4b01bb0ab7957e57593fa73c2018059",
               "size": 263
             },
             {
               "path": "edit.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/edit.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/edit.md",
               "sha256": "92a1f18a47411643463dea6467bf0b4858d134a96398429a33d51e952cb83b2b",
               "size": 3773
             },
             {
               "path": "generate.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/generate.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/generate.md",
               "sha256": "fa4bdad09a9e1884921083e6169dc4a71971b0df76cd5d5c5f119dd832ae64fa",
               "size": 4991
             },
             {
               "path": "references/history-recipes.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/references/history-recipes.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/references/history-recipes.md",
               "sha256": "39789bfc35d01eadd10def526dd36dcab5c24609b6106fced50c83c0e4b179c9",
               "size": 3208
             },
             {
               "path": "references/message-spec.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/references/message-spec.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/git-commit/references/message-spec.md",
               "sha256": "e016be04c3b7a2a227119ef7d4fa01754e59789dca2aac91b8e76ab44bcfe762",
               "size": 4773
             }
           ]
         }
       ],
-      "icon": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/git-commit.png"
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/git-commit.png"
     },
     {
       "name": "write-openapi-json",
@@ -104,92 +104,92 @@
           "files": [
             {
               "path": "SKILL.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/SKILL.md",
               "sha256": "2ced20062389893992246e541975b42a708678f0af5885258b52160e9de6e81c",
               "size": 3516
             },
             {
               "path": "agents/openai.yaml",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/agents/openai.yaml",
               "sha256": "0a75caf6ce2558b4dcbed327b008469a9b1cfe261fa8969821f0aa4f93bf59f8",
               "size": 264
             },
             {
               "path": "edit.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/edit.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/edit.md",
               "sha256": "88c739764d6d67ca1de8be5e69628bf53d64f37c9e0f6d99d7e911a779167d1b",
               "size": 5083
             },
             {
               "path": "generate.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/generate.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/generate.md",
               "sha256": "e57ffb61c4f7672a8011e1dca02c966233cafec5481ad6f21918fa8c2a4313bf",
               "size": 6502
             },
             {
               "path": "references/format-guide.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/references/format-guide.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/references/format-guide.md",
               "sha256": "82e1f8095b52844acb42ef81510dba94ca34e80cbf6342d31e4bef26b117b5e0",
               "size": 14811
             },
             {
               "path": "references/minimal-example.openapi.json",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/references/minimal-example.openapi.json",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/references/minimal-example.openapi.json",
               "sha256": "053c670c9ee0bfb94fe9679d3b66d6c2c4af186ee9314d3853a4155da593e74f",
               "size": 7354
             },
             {
               "path": "references/pitfalls.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/references/pitfalls.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/references/pitfalls.md",
               "sha256": "cdf8819ed5a2a561eae59d0f3f7d1fafe7f3acbce5f67caeb21d3741034bf755",
               "size": 6698
             },
             {
               "path": "scripts/_openapi_common.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/_openapi_common.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/_openapi_common.py",
               "sha256": "0b0dd0f7ee444962b2f505f3e924e77d9b5785672bc576029a8b3f4a06f4ebcc",
               "size": 6529
             },
             {
               "path": "scripts/validate_openapi.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/validate_openapi.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/validate_openapi.py",
               "sha256": "4576b774d81e43e73cdd1838f5db505ef799096902700b72a582a4261c5a074f",
               "size": 12674
             },
             {
               "path": "scripts/validate_openapi_request_contract.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/validate_openapi_request_contract.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/validate_openapi_request_contract.py",
               "sha256": "1c4533061e04ddb0558e0b90f635dec5fd014ed5c05a426404289250193f122a",
               "size": 10148
             },
             {
               "path": "scripts/validate_openapi_response_contract.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/validate_openapi_response_contract.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/scripts/validate_openapi_response_contract.py",
               "sha256": "9d9d6ade5016b1417c6356d37e01b3e68c53521828d146edc4a0da025d2cd1ed",
               "size": 5858
             },
             {
               "path": "tests/fixtures/response-contract-bad.openapi.json",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/tests/fixtures/response-contract-bad.openapi.json",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/tests/fixtures/response-contract-bad.openapi.json",
               "sha256": "61edc7f452a87b4eb4bba5e53672e0ab004787e4b9b7279993ecc0fd1fa0ee65",
               "size": 7993
             },
             {
               "path": "tests/fixtures/response-contract-good.openapi.json",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/tests/fixtures/response-contract-good.openapi.json",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/tests/fixtures/response-contract-good.openapi.json",
               "sha256": "684136c2e403f2583dea5b5107e7ff84a84510a4e3590021ddcaf82b5e8371cc",
               "size": 13472
             },
             {
               "path": "tests/run_tests.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/tests/run_tests.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-openapi-json/tests/run_tests.py",
               "sha256": "f16d453882efa17683f41bc4603fb848ffd02d0f8180c07508efdd0d85a19d8f",
               "size": 5594
             }
           ]
         }
       ],
-      "icon": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/write-openapi-json.png"
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/write-openapi-json.png"
     },
     {
       "name": "write-knowledge-doc",
@@ -217,188 +217,188 @@
           "files": [
             {
               "path": "SKILL.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/SKILL.md",
               "sha256": "ce7835ad78dd7a8cf069578337c88ff8c9d044f2cce7ac0405afc1bf7181d9c2",
               "size": 4428
             },
             {
               "path": "agents/openai.yaml",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/agents/openai.yaml",
               "sha256": "c414aa3f9324fca3e5a1a1a4f22644f3004b4e6895b50b6ecd21aaab52df52c2",
               "size": 270
             },
             {
               "path": "edit.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/edit.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/edit.md",
               "sha256": "5be8d9dabbd6ef5da2fe4553652fe385acac8deb7edff3a3c9a0c9410e914d26",
               "size": 5024
             },
             {
               "path": "generate.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/generate.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/generate.md",
               "sha256": "21e0492132805a53bcfa58a732d1a0cb19c4205abf38754a43c8e78677f72e3c",
               "size": 7065
             },
             {
               "path": "references/anti-patterns.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/anti-patterns.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/anti-patterns.md",
               "sha256": "1fc314c5f21a464a79ff74f5bbbb317ec52ee3dfbb9ea45e9d67edc81e2f95ce",
               "size": 3643
             },
             {
               "path": "references/entry-template.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/entry-template.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/entry-template.md",
               "sha256": "559a24a410635e7d15ac5db108a8c1c201744c0302fe57b4cbc0101473da7ce0",
               "size": 3217
             },
             {
               "path": "references/qa-protocol.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/qa-protocol.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/qa-protocol.md",
               "sha256": "ea11b369a79d3ea6465a7a4056b5a4d7071eaeb5aeeb7f98db952d7b3f724714",
               "size": 2876
             },
             {
               "path": "references/skeleton.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/skeleton.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/skeleton.md",
               "sha256": "7286885374adddcff0c85ae4a15275357d306d26a5404534821041471974220a",
               "size": 5953
             },
             {
               "path": "references/typography.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/typography.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/typography.md",
               "sha256": "1357e9e4c1f41544aad17fd3b3fd0d36d82c1dba8cae19c3b5d3abb51190abf0",
               "size": 4647
             },
             {
               "path": "references/writing-rules.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/writing-rules.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/references/writing-rules.md",
               "sha256": "21f378298584f368b87e92dd8cfe4b45eb478de06f63030dad3d5373bd79c9cf",
               "size": 6716
             },
             {
               "path": "scripts/validate_knowledge_doc.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/scripts/validate_knowledge_doc.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/scripts/validate_knowledge_doc.py",
               "sha256": "6c012805ea73e115fd2efd34cef5de15218b512f75407f20832166362a0bcbbe",
               "size": 26566
             },
             {
               "path": "tests/fixtures/appended-gap.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/appended-gap.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/appended-gap.md",
               "sha256": "c3818a181d22c3c1961574f0091d824566e2e4a34a57acb4f08048a27201e9be",
               "size": 1541
             },
             {
               "path": "tests/fixtures/bad-h3-number.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/bad-h3-number.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/bad-h3-number.md",
               "sha256": "b167f488e38180258c3d0bd178e81d4f632fd4c627a359ca54b99f38cc74950f",
               "size": 750
             },
             {
               "path": "tests/fixtures/bad-section-number.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/bad-section-number.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/bad-section-number.md",
               "sha256": "c9623c4bc54e42c1e1ddb34e483bd35f55e8fdba1c053c1e03cc01361947a23e",
               "size": 717
             },
             {
               "path": "tests/fixtures/bad-systematic.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/bad-systematic.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/bad-systematic.md",
               "sha256": "0cba0c0cc09fd489d7f66f6868de73b0cae3a44a998f10f0c6c249842c439aa3",
               "size": 525
             },
             {
               "path": "tests/fixtures/date-order.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/date-order.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/date-order.md",
               "sha256": "a302632c9f215b6876eb80926f5932e8583c17d6df0ea8bfd87a9bb3678be3e2",
               "size": 1011
             },
             {
               "path": "tests/fixtures/dead-end.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/dead-end.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/dead-end.md",
               "sha256": "a13af703fb89cf273e9bd571c37cf524d12a0519c405240bbd037686915dfb77",
               "size": 738
             },
             {
               "path": "tests/fixtures/first-entry-exempt.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/first-entry-exempt.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/first-entry-exempt.md",
               "sha256": "873c535594c79e4d0f1df1cecbd7d8ea1fd4a67f6c5216e32dd76ac9280468ef",
               "size": 1389
             },
             {
               "path": "tests/fixtures/h1-mismatch.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/h1-mismatch.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/h1-mismatch.md",
               "sha256": "395a0c5bd2cbe4283580954c4ce36241dc1dc501e7c94b13c2e37ad782df1442",
               "size": 735
             },
             {
               "path": "tests/fixtures/invalid-frontmatter.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/invalid-frontmatter.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/invalid-frontmatter.md",
               "sha256": "480b2d6f69b36dbf89bb47d03eee97e4a08d30e15735f12044db78fbd3c06418",
               "size": 667
             },
             {
               "path": "tests/fixtures/missing-kind.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/missing-kind.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/missing-kind.md",
               "sha256": "e2ef6930494ced1f1146482ca543d4e17ca670b79645ae1e922887c9073c2329",
               "size": 1429
             },
             {
               "path": "tests/fixtures/missing-sections.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/missing-sections.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/missing-sections.md",
               "sha256": "790466119f3df72a7a5c2f4d51b36f0e3e4bde5c3935165fb99b9c46afa8a026",
               "size": 433
             },
             {
               "path": "tests/fixtures/problem-leak.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/problem-leak.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/problem-leak.md",
               "sha256": "66631e1749186b91b2bf8e0c6cd76d01d23eb8c93cf0257079bd2c6f8c19531b",
               "size": 934
             },
             {
               "path": "tests/fixtures/skeleton-stage.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/skeleton-stage.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/skeleton-stage.md",
               "sha256": "a9fc752dcb2e5bad9992581fefdd0c4fd10f0a3c24ff3b38ffefe906b352a7e0",
               "size": 533
             },
             {
               "path": "tests/fixtures/source-oriented-title.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/source-oriented-title.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/source-oriented-title.md",
               "sha256": "b6ff6062a736677b91543a7bd2f936c33046f50ff4d700e69288da9a2206618c",
               "size": 706
             },
             {
               "path": "tests/fixtures/systematic-doc.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/systematic-doc.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/systematic-doc.md",
               "sha256": "05af2e93a3218e6b5006a0cc2c8455df3d3f24936f7ba71f39a87677b237e69d",
               "size": 552
             },
             {
               "path": "tests/fixtures/vague-scope.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/vague-scope.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/vague-scope.md",
               "sha256": "d80e7a1ecd862f4c9798d1d64a15f2c9b0ce09ad4cd565bc2693043bdd191a2d",
               "size": 1347
             },
             {
               "path": "tests/fixtures/valid-entry.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/valid-entry.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/fixtures/valid-entry.md",
               "sha256": "dc83e959af6cff72fee7c16667013041a5c1f125d4381baec6eec7230165c713",
               "size": 5006
             },
             {
               "path": "tests/run_tests.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/run_tests.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/tests/run_tests.py",
               "sha256": "f3e2ddeacd4f873c4e21bf5bb3a74e39d8a594cdfdf9b65a1274be0a8f4652c0",
               "size": 6979
             },
             {
               "path": "understand.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/understand.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/write-knowledge-doc/understand.md",
               "sha256": "fb1d9cd5fbd39c015cf6f6499387d63793c733f107734adae76442efcb599b76",
               "size": 3177
             }
           ]
         }
       ],
-      "icon": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/write-knowledge-doc.png"
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/write-knowledge-doc.png"
     },
     {
       "name": "ste",
@@ -426,86 +426,86 @@
           "files": [
             {
               "path": "SKILL.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/SKILL.md",
               "sha256": "29de8ac9f340285f5831f83a01a183f4b9547504255a9f2029ccfb9e67449669",
               "size": 3508
             },
             {
               "path": "agents/openai.yaml",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/agents/openai.yaml",
               "sha256": "5ac2ab472608af3985ca3437b25935a8c3a3eed8458bff527ce975f9585d9af1",
               "size": 231
             },
             {
               "path": "edit.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/edit.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/edit.md",
               "sha256": "43d615635629262b5507461cbd29309c54a4361d2c37d670aa2fb3e72446e2d0",
               "size": 3220
             },
             {
               "path": "generate.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/generate.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/generate.md",
               "sha256": "f7e408a9d1edd720b0a29cc26895bf952ba8b6720e8bc684fac9364a471b1242",
               "size": 5674
             },
             {
               "path": "references/coverage.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/coverage.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/coverage.md",
               "sha256": "46c09a670f03c2e3c16925029c1d2380c28b5e8bf99b591c2123fba3eb160ae2",
               "size": 2917
             },
             {
               "path": "references/rules.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/rules.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/rules.md",
               "sha256": "1d94e298d6abcfe980a5370d8ae3dacecbfac5d0846e5185b0eecb08735cf78d",
               "size": 9589
             },
             {
               "path": "references/templates.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/templates.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/templates.md",
               "sha256": "c882288b1b21586c4718622d67cbc30e4bd88f130c302275f7a99f8bb9f5f1ad",
               "size": 8293
             },
             {
               "path": "references/terminology.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/terminology.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/references/terminology.md",
               "sha256": "410097fa917f3b5f787c6a33269df514c17a5fae383d770894e9bee24c1eb461",
               "size": 6419
             },
             {
               "path": "scripts/validate_ste.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/scripts/validate_ste.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/scripts/validate_ste.py",
               "sha256": "95b0f0cea0cfe14267be6dd8dc9219c47a3d3efa553a189b2fec750b0c03c724",
               "size": 9319
             },
             {
               "path": "tests/fixtures/invalid_sample.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/tests/fixtures/invalid_sample.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/tests/fixtures/invalid_sample.md",
               "sha256": "0082e8d2d5a74a059d030147a65f6143e37e1e8560c338c6c491e8ca0da40016",
               "size": 323
             },
             {
               "path": "tests/fixtures/valid_report.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/tests/fixtures/valid_report.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/tests/fixtures/valid_report.md",
               "sha256": "55431f93e22afae056be7d352dec93a80c0221ff849b65cb3b2ee729e4aacbe7",
               "size": 950
             },
             {
               "path": "tests/run_tests.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/tests/run_tests.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/tests/run_tests.py",
               "sha256": "22e2c3b8635db80cba4cce843c73092ace9d9c570554df33d3f5b6578f8527ec",
               "size": 4995
             },
             {
               "path": "understand.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/understand.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/ste/understand.md",
               "sha256": "15553e5ae493b6ea2d5c774d5bc47ccf071d629293c64856f45fac1585233741",
               "size": 3968
             }
           ]
         }
       ],
-      "icon": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/ste.png"
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/ste.png"
     },
     {
       "name": "skill-development",
@@ -533,92 +533,92 @@
           "files": [
             {
               "path": "SKILL.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/SKILL.md",
               "sha256": "27a8c11f6adc1e00b814aea80389c8fc414ca4ad0a117b833880f1471cf80e3d",
               "size": 1726
             },
             {
               "path": "agents/openai.yaml",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/agents/openai.yaml",
               "sha256": "2fdbed53ca0032ab9ad694ed5449414cb58d1e522ce94496b9b1838529ca76dc",
               "size": 332
             },
             {
               "path": "create.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/create.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/create.md",
               "sha256": "7c0b963e47cc6de12e3b2ebb596ccbda0493ca1316cd1b6b714f6244ffd81551",
               "size": 3897
             },
             {
               "path": "edit.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/edit.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/edit.md",
               "sha256": "5f2a31332c090559676b18e81e50a7350070341f8890a162c741bdf398cb36f9",
               "size": 3231
             },
             {
               "path": "references/architecture-writing.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/architecture-writing.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/architecture-writing.md",
               "sha256": "23a70b97c3dace1d2a200521dea5f4f2cdc9d13ff8d7dc32974756c7be848b86",
               "size": 5119
             },
             {
               "path": "references/contracts.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/contracts.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/contracts.md",
               "sha256": "86fb07e2d931a0f543e19c85dc8160bc82c98328610b56a7ee42eeedd403ec34",
               "size": 3643
             },
             {
               "path": "references/repository-profile.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/repository-profile.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/repository-profile.md",
               "sha256": "e548a281fec91ce0deb8fba4f333b00c32bc2af54b9d098f4b986e0510723d2e",
               "size": 2955
             },
             {
               "path": "references/sources.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/sources.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/sources.md",
               "sha256": "7b2f5163d13f70ce625de670d0e87fb9d22c48a2b5fed6fbf52ffa0da5dce11d",
               "size": 2774
             },
             {
               "path": "references/templates.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/templates.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/templates.md",
               "sha256": "92542f2071fdab23bc3844281a8d8a5d9d55cb12f8e854a8db5478d4f8d17135",
               "size": 1819
             },
             {
               "path": "references/validation.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/validation.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/references/validation.md",
               "sha256": "7c2aa415d595f855e794b3c6d1732525e0bd040fc70658994f040549e656b485",
               "size": 4643
             },
             {
               "path": "scripts/validate_skill.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/scripts/validate_skill.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/scripts/validate_skill.py",
               "sha256": "761bab53b7481b55ee67d7e7302018699a2f710838ff6275226a08d7e118a948",
               "size": 26406
             },
             {
               "path": "tests/behavior-cases.json",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/tests/behavior-cases.json",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/tests/behavior-cases.json",
               "sha256": "4b89723841048dc329f73af481bfa1af710bb343a7ad0a500c1996f2ad50bd48",
               "size": 2382
             },
             {
               "path": "tests/test_validate_skill.py",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/tests/test_validate_skill.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/tests/test_validate_skill.py",
               "sha256": "fcce04bfbcd3431089bd0df6be2f55640cebfb4a5b552ef87e8187a5b8217798",
               "size": 21475
             },
             {
               "path": "understand.md",
-              "url": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/understand.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/skill-development/understand.md",
               "sha256": "678b08513de684965f64cde1002c164dfae922dd55c601c277e04ea7448b3a07",
               "size": 2654
             }
           ]
         }
       ],
-      "icon": "https://raw.githubusercontent.com/xiechenghua01/skills/1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/skill-development.png"
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@1f513a26c7bc7ff90c49e8eb07e1a2500262dc05/assets/skill-development.png"
     }
   ]
 }
