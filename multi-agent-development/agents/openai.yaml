@@ -1,0 +1,4 @@
+interface:
+  display_name: "多智能体协作开发"
+  short_description: "DSH 插件多角色交付：拆分、模型路由、异步推进、实机验收"
+  default_prompt: "请使用 $multi-agent-development 按多智能体协作开发流程实施以下 DSH 插件任务："

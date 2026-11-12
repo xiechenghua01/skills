@@ -8,7 +8,7 @@
 
 1. 打开 ZCode **设置 → 插件管理 → 发现**，点击 **添加市场（+）**。
 2. 选择本仓库根目录。本机路径为 `/Users/xiechenghua/Codes/xch/skills`；在其他机器上使用实际克隆路径，不要选择某个技能子目录。
-3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json`、`write-knowledge-doc`、`ste` 或 `skill-development` 插件。仅添加市场不会自动安装技能。
+3. 添加成功后，在该市场中分别安装需要的 `git-commit`、`write-openapi-json`、`write-knowledge-doc`、`ste`、`skill-development` 或 `multi-agent-development` 插件。仅添加市场不会自动安装技能。
 4. 安装并启用后，在技能设置或 `/` 菜单中确认技能可用。
 
 根目录的 `marketplace.json` 登记市场及插件来源，各技能目录中的 `.zcode-plugin/plugin.json` 声明插件信息。插件清单中的 `"skills": "."` 相对于插件根目录解析，直接加载已有的 `SKILL.md`，无需移动技能或附属资源。
@@ -62,6 +62,14 @@ python3 scripts/build-skill-market-index.py --latest # 每个技能只保留最�
 [**skill-development**](./skill-development/SKILL.md) — 新建、编辑与理解 Agent Skill：清晰需求直接推进，按最小结构实现，分别验证静态契约、任务路由、真实产物与可选对照；理解默认只读，安装和发布不包含在开发授权中。
 
 可显式调用 `/skill-development`，或在 Codex 使用 `$skill-development`。新增源码和市场登记不等于已安装；安装启用后才验证目标宿主的实际触发。
+
+[**multi-agent-development**](./multi-agent-development/SKILL.md) — DSH 插件实施阶段的多模型协作交付：主控拆解与跟进，快模型实现，独立审查和按风险 GPT 深审，主控进行 ego lite 实机验收；外部子 agent 仍在运行时不得提前宣称交付完成。
+
+安装后可直接说「按刚才确认的方案开始开发插件」，或显式调用 `/multi-agent-development`。语义自动选择不保证每次命中；如需更稳定地沿用分工，可在实际插件开发工作区的规则中加入一条指针：
+
+> DSH 插件任务获得明确实施授权且范围清楚时，加载 `multi-agent-development`；仅讨论方案或未授权写入时不开始实施。具体插件 API 和浏览器操作分别遵循 `cordis-plugin-development` 与 `ego-browser`。
+
+该技能不切换主会话模型、不修改全局模型或权限配置，也不创建实时后台状态 UI。阶段性「仍在运行」消息只是静态告知，不能替代 DSH 的持续运行提示。技能安装、全局规则修改与市场发布分别需要对应授权；未发布的新技能不会自动出现在 DSH 市场索引中。
 
 ## 扩展约定
 
