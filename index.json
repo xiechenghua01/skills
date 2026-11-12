@@ -635,6 +635,66 @@
       "repository": "https://github.com/xiechenghua01/skills",
       "versions": [
         {
+          "version": "0.1.1",
+          "publishTimestamp": 1794467367,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/xiechenghua01/skills",
+            "commit": "925ace01a9307485bed40298f5ebea2f666c0c46",
+            "path": "multi-agent-development"
+          },
+          "files": [
+            {
+              "path": "SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/SKILL.md",
+              "sha256": "d03393e95f9890e9f3be7e36036b81fb5cab20fbef89d2565138863edb39a4e7",
+              "size": 4837
+            },
+            {
+              "path": "agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/agents/openai.yaml",
+              "sha256": "94d1edc8df4e6d30d7a6ad41a565fb818951488e291fae60eef763fc1f585e69",
+              "size": 277
+            },
+            {
+              "path": "references/acceptance.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/references/acceptance.md",
+              "sha256": "9301c5f54cf4b05bae509d0a329bc58f23c4ad6b8e9d2aaa981b3477f309e29e",
+              "size": 4538
+            },
+            {
+              "path": "references/async-runs.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/references/async-runs.md",
+              "sha256": "49d4a6ffdd2a356032ce41ebf16638edb03ee90509eae0d499d7073481596149",
+              "size": 6735
+            },
+            {
+              "path": "references/model-routing.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/references/model-routing.md",
+              "sha256": "6df8583e29cda2d23173f31a9e0f731287991a7303cf5779c1c85b69ac599ec4",
+              "size": 5815
+            },
+            {
+              "path": "tests/README.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/tests/README.md",
+              "sha256": "ad88cb2f98da0ba5800ca4c1090d500a68cb6dae47351f1e8ebe0a7e370c1026",
+              "size": 1450
+            },
+            {
+              "path": "tests/cases.json",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/tests/cases.json",
+              "sha256": "5f6bbf6862f839b7448cdc432c7509bd78e45a65cf1e4556cc866f6789724391",
+              "size": 9531
+            },
+            {
+              "path": "tests/test_package.py",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/multi-agent-development/tests/test_package.py",
+              "sha256": "eb519704759db41950bd9505b19aab160d8d6bb464de509e0a4a4004e2aeb6f7",
+              "size": 4076
+            }
+          ]
+        },
+        {
           "version": "0.1.0",
           "publishTimestamp": 1794466007,
           "source": {
@@ -694,7 +754,8 @@
             }
           ]
         }
-      ]
+      ],
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/assets/multi-agent-development.png"
     }
   ]
 }
