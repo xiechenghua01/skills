@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="多智能体协作开发：主控调度多个执行者">
+  <!-- 多智能体协作开发图标：
+       1. 中央实心圆点：主 agent，负责拆分、调度与最终验收；
+       2. 外围三枚稍小圆点：Claude Code、Codex、快速模型等执行者，按角色分担实现与审查；
+       3. 三根连线：任务派发与结果回传，构成「一对多、中心协同」的协作拓扑；
+       4. 紫罗兰底色（#7C3AED）：区别于既有技能色相，取协作、编排的语义。 -->
+  <rect width="48" height="48" rx="11" ry="11" fill="#7C3AED"/>
+  <g stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 19.4 V15.6" fill="none"/>
+    <path d="M20.02 26.3 L16.7 28.2" fill="none"/>
+    <path d="M27.98 26.3 L31.3 28.2" fill="none"/>
+    <circle cx="24" cy="24" r="4.6" fill="#FFFFFF" stroke="none"/>
+    <circle cx="24" cy="12.6" r="3" fill="#FFFFFF" stroke="none"/>
+    <circle cx="14.1" cy="29.7" r="3" fill="#FFFFFF" stroke="none"/>
+    <circle cx="33.9" cy="29.7" r="3" fill="#FFFFFF" stroke="none"/>
+  </g>
+</svg>

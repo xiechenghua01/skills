@@ -64,13 +64,14 @@
     {
       "name": "multi-agent-development",
       "source": "./multi-agent-development",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "displayName": "Multi-Agent Development",
       "displayName_i18n": {
         "en": "Multi-Agent Development",
         "zh-CN": "多智能体协作开发"
       },
-      "description": "在 DSH 插件任务获得实施授权后组织多模型协作：主控统筹，快模型实现，独立审查与按风险 GPT 深审，主控实机验收；区分本轮结束、子任务终止与交付完成。"
+      "description": "在 DSH 插件任务获得实施授权后组织多模型协作：主控统筹，快模型实现，独立审查与按风险 GPT 深审，主控实机验收；区分本轮结束、子任务终止与交付完成。",
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/multi-agent-development.png"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "multi-agent-development",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "多智能体协作开发：面向 DSH 插件，在方案确认且要求实施时，按角色与模型策略拆分、异步推进、整合与实机验收，并如实报告完成、未验与后台任务。",
   "skills": "."
 }
