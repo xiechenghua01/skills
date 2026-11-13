@@ -72,6 +72,18 @@
       },
       "description": "在 DSH 插件任务获得实施授权后组织多模型协作：主控统筹，快模型实现，独立审查与按风险 GPT 深审，主控实机验收；区分本轮结束、子任务终止与交付完成。",
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/multi-agent-development.png"
+    },
+    {
+      "name": "dsh-web-browser",
+      "source": "./dsh-web-browser",
+      "version": "0.1.0",
+      "displayName": "DSH Web Browser",
+      "displayName_i18n": {
+        "en": "DSH Web Browser",
+        "zh-CN": "DSH 网页版连接"
+      },
+      "description": "用 ego lite 连接本机 DSH Web GUI：自动探测运行端口、离线签好认证 cookie，一条命令打开页面并拿到 snapshot，无需 token，重启后也不必重新推理认证方式。",
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@main/assets/dsh-web-browser.png"
     }
   ]
 }

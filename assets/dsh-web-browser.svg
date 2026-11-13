@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="DSH 网页版连接：浏览器窗口接入本机 DSH 服务">
+  <!-- DSH 网页版连接图标：
+       1. 上方圆角方框加一条标题栏横线、三枚小圆点：ego lite 的浏览器窗口，指代真正去访问页面的那一端；
+       2. 窗口下方一条竖直短线：一条命令直达，不需要自己拼 token 或重推认证流程；
+       3. 短线末端的实心圆点：本机正在运行的 DSH 服务端点，表示连通的是 localhost 而非外部网站；
+       4. 「窗口—连线—本机」自上而下的一条轴，构图上区别于多智能体协作开发的中心放射拓扑；
+       5. 青绿底色（#0F766E）：现有图标已用橙红、绿、靛蓝、天蓝、陶土橙、紫罗兰，青绿是未占用的色相，
+          既保留浏览器类工具的冷色印象，又和相近的天蓝、绿拉开明度与色相距离。 -->
+  <rect width="48" height="48" rx="11" ry="11" fill="#0F766E"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="6.6" y="7.8" width="34.8" height="23.4" rx="3.8" ry="3.8"/>
+    <path d="M7.8 14 H40.2"/>
+    <path d="M24 32.4 V35"/>
+    <circle cx="24" cy="38.3" r="2.9" fill="#FFFFFF" stroke="none"/>
+    <circle cx="10.8" cy="10.9" r="1.05" fill="#FFFFFF" stroke="none"/>
+    <circle cx="14.5" cy="10.9" r="1.05" fill="#FFFFFF" stroke="none"/>
+    <circle cx="18.2" cy="10.9" r="1.05" fill="#FFFFFF" stroke="none"/>
+  </g>
+</svg>

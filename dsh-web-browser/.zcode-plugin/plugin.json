@@ -1,0 +1,6 @@
+{
+  "name": "dsh-web-browser",
+  "version": "0.1.0",
+  "description": "用 ego lite 连接本机 DSH Web GUI：自动探测运行端口、离线签好认证 cookie，一条命令打开页面并拿到 snapshot，无需 token，重启后也不必重新推理认证方式。",
+  "skills": "."
+}
