@@ -756,6 +756,65 @@
         }
       ],
       "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@925ace01a9307485bed40298f5ebea2f666c0c46/assets/multi-agent-development.png"
+    },
+    {
+      "name": "dsh-web-browser",
+      "title": {
+        "en": "DSH Web Browser",
+        "zh": "DSH 网页版连接"
+      },
+      "description": {
+        "en": "Connect ego lite to the local DeepSeek Harness (DSH) Web GUI. Load this when the user wants to open DSH in a browser, reconnect after a restart, automate or inspect the DSH interface itself, or when the DSH page keeps failing with 401. One command signs the auth cookie offline from the on-disk secret, so no launch token and no re-deriving the auth flow each time. Not for browsing external websites; use the normal ego-browser workflow for those.",
+        "zh": "用 ego lite 连接本机 DeepSeek Harness（DSH）Web GUI 的技能：用户说「用 ego lite 打开 DSH 网页版」「连上本机 DSH 界面」「重启后重新进 DSH Web」「在浏览器里操作 DSH 自己的界面」「DSH Web 连不上或返回 401」时使用。一条命令连通，不需要 token，重启后也能直接连，不用每次重新推理认证方式。不用于操作外部网站，那走 ego-browser 常规流程。"
+      },
+      "author": "xiechenghua01",
+      "homepage": "https://github.com/xiechenghua01/skills/tree/main/dsh-web-browser",
+      "repository": "https://github.com/xiechenghua01/skills",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1794560804,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/xiechenghua01/skills",
+            "commit": "9f4f3550a13fbaef66f65864d75b4a2a439fa4b5",
+            "path": "dsh-web-browser"
+          },
+          "files": [
+            {
+              "path": "SKILL.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@9f4f3550a13fbaef66f65864d75b4a2a439fa4b5/dsh-web-browser/SKILL.md",
+              "sha256": "40a2c72c6b6c59a1458801bca7db6536965ccf3ef78cc8335cd76352cb234674",
+              "size": 4973
+            },
+            {
+              "path": "agents/openai.yaml",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@9f4f3550a13fbaef66f65864d75b4a2a439fa4b5/dsh-web-browser/agents/openai.yaml",
+              "sha256": "7aecc05e088c8e133ff0dc91e909b446e8b0f9c04bd3fffaae48d83cd9ff29a5",
+              "size": 235
+            },
+            {
+              "path": "references/dsh-web-auth.md",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@9f4f3550a13fbaef66f65864d75b4a2a439fa4b5/dsh-web-browser/references/dsh-web-auth.md",
+              "sha256": "7c30ee21687980bcdadcfa260c5d8b833addeb52f231aea3ccc7e320c607643d",
+              "size": 7277
+            },
+            {
+              "path": "scripts/dsh-cookie.mjs",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@9f4f3550a13fbaef66f65864d75b4a2a439fa4b5/dsh-web-browser/scripts/dsh-cookie.mjs",
+              "sha256": "38537a5c08c5d7357157910c7557b4c9ab2a4f9973499b77521f0324d56e2e2c",
+              "size": 5971
+            },
+            {
+              "path": "scripts/ego-dsh.mjs",
+              "url": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@9f4f3550a13fbaef66f65864d75b4a2a439fa4b5/dsh-web-browser/scripts/ego-dsh.mjs",
+              "sha256": "83c5b209c420ed7554a217db8672997c590a1d84c0dff8a3e6637d5066862066",
+              "size": 8840
+            }
+          ]
+        }
+      ],
+      "icon": "https://cdn.jsdelivr.net/gh/xiechenghua01/skills@9f4f3550a13fbaef66f65864d75b4a2a439fa4b5/assets/dsh-web-browser.png"
     }
   ]
 }
